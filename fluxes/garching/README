@@ -1,0 +1,16 @@
+This directory contains digitized files of the parameterized "Garching" flux,
+
+from
+Huedepohl et al.
+http://link.aps.org/doi/10.1103/PhysRevLett.104.251101
+
+make_garching_fluxes.C  
+reads the digitized text files for each flavor and creates
+garching_pinched_info.dat, which  can be substituted for pinched_info.dat to use
+the "pinched" tool to create time-dependent
+
+It also creates garching_pinched_info_key.dat, which connects each numbered
+pinched flux file to the time information, which can be used later for plotting.
+
+Example plotting files can be found in trunk/plots
+garching_time_plot.C and plot_garching.C
