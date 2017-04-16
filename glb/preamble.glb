@@ -1,0 +1,25 @@
+%!GLoBES
+/* Copyright 2005 Patrick Huber
+ *
+ *
+ * For supernova nus: based on Daedalus code by Rachel Carr
+ */
+
+$version="1.8.1"
+
+/* ######## Baseline setting ######## */
+
+$profiletype = 		1         /* standard earth density profile */
+$baseline =             1.5       /* km */
+
+
+/* ####### Energy window ####### */
+
+$bins =                 200
+$emin =                 0.0005     /* GeV */
+$emax =                 0.100     /* GeV */
+
+$sampling_points = 	200
+$sampling_min = 	0.0005     /* GeV */
+$sampling_max = 	0.100     /* GeV */
+
