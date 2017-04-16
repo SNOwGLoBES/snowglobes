@@ -1,0 +1,20 @@
+pinched.C  creates flux files according to the "Garching parameterization"
+
+It reads pinched_info.dat, which has one line per parameterized flux,
+and outputs one flux file per line.
+
+pinched_info_example.dat gives an example
+
+The format 
+      number  alpha_nu_e  alpha_nubar_e  alpha_nu_x   Eavg_nu_e   Eavg_nubar_e   Eavg_nu_x  lum_nu_e lum_nubar_e lum_nu_x
+
+where number is the index of the flux file
+alpha is the pinching parameter
+Eavg is the average energy in MeV
+The luminosity is in ergs/sec... but in Snowglobes, usually this is already multiplied by dt, the time interval represented by the "flux" file (i.e. it's really a fluence file), so the units are really ergs (and it's not strictly "luminosity"...)
+
+The flux for nux should be for one flavor; assumes all nux fluxes are equal
+
+The flux file output goes to OUTFLUXDIR if this environment variable is set; otherwise it goes to the working directory.
+
+run_pinched.pl is an example script for running Snowglobes on a bunch of pinched flux files (this would be run from the trunk directory, or tweaked to point to the right locations).   It needs to have the input directory (directory where the pinched flux files live) and output directory (directory where the output smeared flux files are to go) specified.
