@@ -1,0 +1,8 @@
+/* ########  Flux data ######## */
+
+nuflux(#supernova_flux)<
+	@flux_file=   "supernova_flux.dat"        
+	@time =       1                  /* 1 file unit (1 supernova)*/
+	@power =      1                    
+	@norm =       0.0677
+>
