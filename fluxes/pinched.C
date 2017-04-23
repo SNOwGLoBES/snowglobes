@@ -10,6 +10,10 @@
 // 
 // Flux file output goes to OUTFLUXDIR if set, otherwise to working directory
 
+// If the argument is non-zero, the output will create output files using 
+// the simplified MSW assumption,  in $OUTFLUXDIR/nh and $OUTFLUXDIR/ih
+
+
 
 
 #include <iostream>
@@ -22,8 +26,10 @@
 
 using namespace std;
 
-ofstream outfile;
 ifstream infile;
+ofstream outfile;
+ofstream outfile_nh;
+ofstream outfile_ih;
 
 // arrays for fluxes, average energies, pinching and luminosities of neutrinos : nue, nuebar, nux
 // Luminosity is for a single nux flavor
@@ -45,10 +51,36 @@ double phi(double E_nu, double E0, double alpha);
 
 //---------------------------------------------------------------------------------------------------------------------------------------------------------
 
-int main(){
+void usage() {
+  // print usage information
+  printf("\n pinched  by K. Scholberg \n");
+  printf("Usage:\n");
+  printf("./pinched th12[rad]\n");
+  printf("If th12 absent, no MSW assumed; if present creates NH/IH directories\n");
+  
+}
 
-	int i;
-	infile.open("pinched_info.dat");
+
+int main(int argc, char **argv){
+
+
+  if (argc > 2) {
+  usage();
+  exit(-1);
+}
+
+double th12=0.;
+if (argc==2) {
+  th12 = atof(argv[1]);
+  cout << "Assuming MSW with th12= "<<th12<<" radians"<<endl;
+
+ } else {
+  cout << "No oscillations assumed"<<endl;
+ }
+
+
+int i;
+infile.open("pinched_info.dat");
 	if (!infile.good()){
 	  cout << "Can't open pinched_info.dat"<<endl;
 	  exit(EXIT_FAILURE);
@@ -57,28 +89,28 @@ int main(){
 	// Loop over all lines of input files
 	while ( infile.good() ){
 
-		infile >> i; 
-		infile >> alpha[0];  
-		infile >> alpha[1];  
-		infile >> alpha[2];  
-		infile >> E0[0];
-		infile >> E0[1];
-		infile >> E0[2];
-		infile >> L[0];
-		infile >> L[1];
-		infile >> L[2];
-		if (!infile.good()) break;
+	  infile >> i; 
+	  infile >> alpha[0];  
+	  infile >> alpha[1];  
+	  infile >> alpha[2];  
+	  infile >> E0[0];
+	  infile >> E0[1];
+	  infile >> E0[2];
+	  infile >> L[0];
+	  infile >> L[1];
+	  infile >> L[2];
+	  if (!infile.good()) break;
 
 		// E must be in GeV
-		for(int k=0; k<3; k++){
-			E0[k]/=1000.;
-		}
+	  for(int k=0; k<3; k++){
+	    E0[k]/=1000.;
+	  }
 
-		cout << "Flux " <<i << ": alpha: "<<alpha[0]<<" "<<alpha[1]<<" "<<alpha[2]<<endl;
+	  cout << "Flux " <<i << ": alpha: "<<alpha[0]<<" "<<alpha[1]<<" "<<alpha[2]<<endl;
 
-		cout << "Flux "<< i << ": E0: "<<E0[0]<<" "<<E0[1]<<" "<<E0[2]<<endl;
-
-		cout << "Flux "<< i << ": Luminosity: "<<L[0]<<" "<<L[1]<<" "<<L[2]<<endl;
+	  cout << "Flux "<< i << ": E0: "<<E0[0]<<" "<<E0[1]<<" "<<E0[2]<<endl;
+	  
+	  cout << "Flux "<< i << ": Luminosity: "<<L[0]<<" "<<L[1]<<" "<<L[2]<<endl;
 
 		// Convert luminosity to GeV/s
 
@@ -92,7 +124,9 @@ int main(){
 		std::stringstream ss;
 
 		if (getenv("OUTFLUXDIR")==NULL){
-		  ss << "pinched_" << i << ".dat";
+		  cout << "I think you want to set OUTFLUXDIR" <<endl;
+		  exit(-1);
+//		  ss << "pinched_" << i << ".dat";
 		} else	{
 		  ss << getenv("OUTFLUXDIR") << "/pinched_"<<i << ".dat";
 		}
@@ -100,6 +134,7 @@ int main(){
 		filename+=ss.str();
 		cout << "Output file: "<<filename<<endl;
 		cout << "--------------"<<endl;
+		ofstream outfile;
 		outfile.open(filename.c_str());
 
 		if (!outfile.good()) {
@@ -153,9 +188,29 @@ void write(double a, double B[]){
   outfile << setw(8) << B[1] << "\t " ;
   outfile << setw(8) << B[2] << "\t " ;
   outfile << setw(8) << B[2] << "\t " ;
+
   outfile << endl;
 
 }
+
+
+// Function to write energy and fluxes into fluxfile 
+void write_nh(double a, double B[], double th12){
+
+  // First neutrinos then antinus
+  outfile_nh << setw(8) << a << "\t " ;
+  outfile_nh << setw(8) << B[0] << "\t " ;
+  outfile_nh << setw(8) << B[2] << "\t " ;
+  outfile_nh << setw(8) << B[2] << "\t " ;
+  outfile_nh << setw(8) << B[1] << "\t " ;
+  outfile_nh << setw(8) << B[2] << "\t " ;
+  outfile_nh << setw(8) << B[2] << "\t " ;
+
+  outfile_nh << endl;
+
+}
+
+
 
 
 

@@ -1,6 +1,7 @@
+// Example of time-dependent plotting
 // Plot Garching rate as a function of time
 // Assume each file is fluence-- i.e. has actual number of events in the interval (dt already already applied)
-// Multiply by 2 here for 34 kton
+// Multiply by 2.4 here for 40 kton
 
 void garching_time_plot(TString indir)
 {
@@ -23,6 +24,7 @@ void garching_time_plot(TString indir)
   }
 
   // This one for log x plot
+
   TH1D* eventsperbin = new TH1D("eventsperbin"," ",ntimebins-1,timebins);
 
   // This one for linear x plot
@@ -82,11 +84,11 @@ void garching_time_plot(TString indir)
 
 
       // totevents here is integrating events over energy in the file
-      // Apply the factor of 2 here for 34 kton (Snowglobes does 17 kt)
+      // Apply the factor of 2.4 here for 40 kton (Snowglobes does 17 kt)
 
       while(1) {
 	in >>en>>ev;
-	totevents += ev*2;
+	totevents += ev*2.4;
 
 	if (!in.good()) break;
 	k++;
@@ -101,6 +103,17 @@ void garching_time_plot(TString indir)
       rate[i] = totevents/dt[i];
       allevents += totevents;
       eventsperbin->Fill(time[i],events[i]);
+      Int_t binnum = eventsperbin->FindBin(time[i]);
+
+      // Root 6 default histo error behavior does not do the
+      // right thing.  I want the sqrt of contents.  Can't seem
+      // to find a Root method that does this
+
+
+      eventsperbin->SetBinError(binnum,TMath::Sqrt(eventsperbin->GetBinContent(binnum)));
+
+      //      cout << "Bin number: "<<binnum<<" events "<<events[i]<<" Content "<<eventsperbin->GetBinContent(binnum)<<" error "<<eventsperbin->GetBinError(binnum)<<endl;
+
       eventsperbinlin->Fill(time[i],events[i]);
       rateinbin->Fill(time[i],rate[i]);
 
@@ -196,6 +209,9 @@ void garching_time_plot(TString indir)
     eventsperbin->GetYaxis()->SetTitleOffset(1.);
     eventsperbin->GetYaxis()->SetLabelSize(0.04);
 
+//    Double_t xbins[ntimebins];
+//    eventsperbin->Rebin(ntimebins-1,"eventsperbin",xbins);
+
     eventsperbin->Draw("pe");
 
     Double_t x1,x2,y1,y2;
@@ -226,6 +242,7 @@ void garching_time_plot(TString indir)
 
     
     TFile f("eventsperbin.root","recreate");
+
     eventsperbin->Write();
     rateinbin->Write();
     f.Close();
