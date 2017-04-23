@@ -146,32 +146,33 @@ void make_garching_fluxes()
 
   //Saved for nue flux
   Double_t alpha_val_first[numflavor];
+  Int_t ret;
 
   for (k=0;k<numflavor;k++) {
     Int_t numpt;
     numpt = alpha_graphs[k]->GetN();
     if (numpt>0) {
-      Int_t ret = alpha_graphs[k]->GetPoint(0,xx,yy);
+      ret = alpha_graphs[k]->GetPoint(0,xx,yy);
       alpha_first[k] = xx;
       alpha_val_first[k] = yy;
-      Int_t ret = alpha_graphs[k]->GetPoint(numpt-1,xx,yy);
+      ret = alpha_graphs[k]->GetPoint(numpt-1,xx,yy);
       alpha_last[k] = xx;
 
     }
 
     numpt = avgen_graphs[k]->GetN();
     if (numpt>0) {
-      Int_t ret = avgen_graphs[k]->GetPoint(0,xx,yy);
+      ret = avgen_graphs[k]->GetPoint(0,xx,yy);
       avgen_first[k] = xx;
-      Int_t ret = avgen_graphs[k]->GetPoint(numpt-1,xx,yy);
+      ret = avgen_graphs[k]->GetPoint(numpt-1,xx,yy);
       avgen_last[k] = xx;
     }
 
     numpt = luminosity_graphs[k]->GetN();
     if (numpt>0) {
-      Int_t ret = luminosity_graphs[k]->GetPoint(0,xx,yy);
+      ret = luminosity_graphs[k]->GetPoint(0,xx,yy);
       luminosity_first[k] = xx;
-      Int_t ret = luminosity_graphs[k]->GetPoint(numpt-1,xx,yy);
+      ret = luminosity_graphs[k]->GetPoint(numpt-1,xx,yy);
       luminosity_last[k] = xx;
     }
 
