@@ -9,6 +9,7 @@ void plot_garching()
   TFile f("eventsperbin.root");
 
   TH1D* eventsperbin = (TH1D*)f.Get("eventsperbin");
+
   TH1D* rateinbin = (TH1D*)f.Get("rateinbin");
 
   // Return to home directory
@@ -40,7 +41,7 @@ void plot_garching()
   Int_t i=0;
   Int_t j=0;
 
-  TString quantity = "luminosity";
+  quantity = "luminosity";
 
   for (i=0;i<numflavor;i++){
 
@@ -176,7 +177,7 @@ void plot_garching()
 
   canv4->Divide(1,4,0.001,0.001);
 
-  leg = new TLegend(0.75,0.5,0.9,0.88);
+  TLegend* leg = new TLegend(0.75,0.5,0.9,0.88);
   leg->AddEntry(lumgraphs[0],"#nu_{e}","l");
   leg->AddEntry(lumgraphs[1],"#bar{#nu}_{e}","l");
   leg->AddEntry(lumgraphs[2],"#nu_{x}","l");
@@ -209,8 +210,8 @@ void plot_garching()
   hr2->GetYaxis()->SetLabelSize(0.1);
 
 
-  Double_t ymin = 5.;
-  Double_t ymax = 15.;
+  ymin = 5.;
+  ymax = 15.;
 
   TH2F *hr3 = new TH2F("hr3","",2,xmin,xmax,2,ymin,ymax);
   //  hr3->SetXTitle(" Time (seconds) ");
@@ -225,8 +226,8 @@ void plot_garching()
   hr3->GetYaxis()->SetTitleOffset(.3);
   hr3->GetYaxis()->SetLabelSize(0.1);
 
-  Double_t ymin = 2.;
-  Double_t ymax = 5;
+  ymin = 2.;
+  ymax = 5;
 
   TH2F *hr4 = new TH2F("hr4","",2,xmin,xmax,2,ymin,ymax);
   //  hr4->SetXTitle(" Time (seconds) ");
@@ -242,7 +243,7 @@ void plot_garching()
 
 
   ymin = 0.1;
-  ymax = 70.;
+  ymax = 75.;
   //  ymax = 1000.;
   TH2F *hr5 = new TH2F("hr5","",2,xmin,xmax,2,ymin,ymax);
   //  hr5->SetXTitle(" Time (seconds) ");
@@ -365,8 +366,8 @@ void plot_garching()
   /////
 
   canv4->cd(2);
-  TPad *current_pad = (TPad*)gROOT->GetSelectedPad();
-  current_pad->SetTopMargin(0.);
+  //  TPad *current_pad = (TPad*)gROOT->GetSelectedPad();
+  //current_pad->SetTopMargin(0.);
 
   gPad->SetLogx(1.);
   gPad->SetTopMargin(0.01);
@@ -441,7 +442,6 @@ void plot_garching()
   alphagraphs[1]->Draw("same");
   alphagraphs[2]->Draw("same");
 
-    Double_t x1,x2,y1,y2;
     x1 = 0.02;
     x2 = 0.02;
 
@@ -555,9 +555,9 @@ void plot_garching()
 
 
   hr5->GetYaxis()->SetLabelOffset(99);
-  const Int_t ny5=6;
-  char *hr5ylab[ny5] = {"10","20","30","40","50","60"};
-  Float_t hr5ylabpos[ny5] = {10.,20.,30.,40.,50.,60.};
+  const Int_t ny5=7;
+  char *hr5ylab[ny5] = {"10","20","30","40","50","60","70"};
+  Float_t hr5ylabpos[ny5] = {10.,20.,30.,40.,50.,60.,70.};
 
   t.SetTextAlign(32);
   t.SetTextAngle(0);
