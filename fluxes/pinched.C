@@ -47,6 +47,8 @@ const double gevpererg = 624.15;
 double estep=0.0002;
 
 void write(double a, double B[]);
+void write_nh(double a, double B[], double th12);
+void write_ih(double a, double B[], double th12);
 double phi(double E_nu, double E0, double alpha);
 
 //---------------------------------------------------------------------------------------------------------------------------------------------------------
@@ -134,7 +136,7 @@ infile.open("pinched_info.dat");
 		filename+=ss.str();
 		cout << "Output file: "<<filename<<endl;
 		cout << "--------------"<<endl;
-		ofstream outfile;
+
 		outfile.open(filename.c_str());
 
 		if (!outfile.good()) {
@@ -142,6 +144,47 @@ infile.open("pinched_info.dat");
 		  cout << "Check that directory pointed to by OUTFLUXDIR environment variable exists"<<endl;
 		    exit(0);
 		}
+
+
+		if (fabs(th12)>0) {
+		  // Make the MSW files
+
+		    string filename_nh;
+		    std::stringstream ss_nh;
+		    
+		    ss_nh << getenv("OUTFLUXDIR") << "/nh/pinched_"<<i << ".dat";
+
+		    filename_nh+=ss_nh.str();
+		    cout << "Output file: "<<filename_nh<<endl;
+		    cout << "--------------"<<endl;
+		    outfile_nh.open(filename_nh.c_str());
+
+		    if (!outfile_nh.good()) {
+		      cout << "Outfile "<<filename_nh<<" not opened..."<<endl;
+		      cout << "Check that directory pointed to by OUTFLUXDIR environment variable exists"<<endl;
+		      exit(0);
+		    }
+
+		    string filename_ih;
+		    std::stringstream ss_ih;
+		    
+		    ss_ih << getenv("OUTFLUXDIR") << "/ih/pinched_"<<i << ".dat";
+
+		    filename_ih+=ss_ih.str();
+		    cout << "Output file: "<<filename_ih<<endl;
+		    cout << "--------------"<<endl;
+		    outfile_ih.open(filename_ih.c_str());
+
+		    if (!outfile_ih.good()) {
+		      cout << "Outfile "<<filename_ih<<" not opened..."<<endl;
+		      cout << "Check that directory pointed to by OUTFLUXDIR environment variable exists"<<endl;
+		      exit(0);
+		    }
+
+
+
+
+		  }
 
 		// File should have flux in the 0.0002 GeV bin, so multiply by bin size
 		E_nu=0;
@@ -157,9 +200,19 @@ infile.open("pinched_info.dat");
 		  }
 			// Write data to output file 
 		  write(E_nu,F); // energies in output file need to be in GeV!
+		  if (fabs(th12)>0) {
+		    write_nh(E_nu,F,th12);
+		    write_ih(E_nu,F,th12);
+		  }
+
 		  E_nu+=estep;
 		}	
 		outfile.close();
+
+		if (fabs(th12)>0) {
+		  outfile_nh.close();
+		  outfile_ih.close();
+		}
 	}
 	infile.close();
 	return 0; 
@@ -198,15 +251,44 @@ void write(double a, double B[]){
 void write_nh(double a, double B[], double th12){
 
   // First neutrinos then antinus
-  outfile_nh << setw(8) << a << "\t " ;
-  outfile_nh << setw(8) << B[0] << "\t " ;
-  outfile_nh << setw(8) << B[2] << "\t " ;
-  outfile_nh << setw(8) << B[2] << "\t " ;
-  outfile_nh << setw(8) << B[1] << "\t " ;
-  outfile_nh << setw(8) << B[2] << "\t " ;
-  outfile_nh << setw(8) << B[2] << "\t " ;
 
+  // NH: nue=nux
+  // nuebar = cos^2th12 nuebar + sin^2th12 nux
+  // nux = (1-p)nue + (1+p)nux
+  // nuxbar = ((1-pbar)nuebar + (1+pbar)nuxbar)/2.
+  // th12 = 0.588336
+  double s2th12 = 0.308;
+  double c2th12 = 0.692;
+
+
+  outfile_nh << setw(8) << a << "\t " ;
+  outfile_nh << setw(8) << B[2] << "\t " ;
+  outfile_nh << setw(8) << (B[0]+B[2])/2. << "\t " ;
+  outfile_nh << setw(8) << (B[0]+B[2])/2. << "\t " ;
+  outfile_nh << setw(8) << c2th12*B[1]+s2th12*B[2] << "\t " ;
+  outfile_nh << setw(8) << ((1.-c2th12)*B[1]+(1+c2th12)*B[2])/2. << "\t " ;
+  outfile_nh << setw(8) << ((1.-c2th12)*B[1]+(1+c2th12)*B[2])/2. << "\t " ;
   outfile_nh << endl;
+
+}
+
+
+// Function to write energy and fluxes into fluxfile 
+void write_ih(double a, double B[], double th12){
+
+  double s2th12 = 0.308;
+  double c2th12 = 0.692;
+
+  // First neutrinos then antinus
+  outfile_ih << setw(8) << a << "\t " ;
+  outfile_ih << setw(8) << s2th12*B[0]+c2th12*B[2] << "\t " ;
+  outfile_ih << setw(8) << ((1-s2th12)*B[0]+(1+s2th12)*B[2])/2. << "\t " ;
+  outfile_ih << setw(8) << ((1-s2th12)*B[0]+(1+s2th12)*B[2])/2. << "\t " ;
+  outfile_ih << setw(8) << B[2] << "\t " ;
+  outfile_ih << setw(8) << (B[1]+B[2])/2. << "\t " ;
+  outfile_ih << setw(8) << (B[1]+B[2])/2. << "\t " ;
+  outfile_ih << endl;
+
 
 }
 
