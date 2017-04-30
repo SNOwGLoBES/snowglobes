@@ -12,4 +12,4 @@ nc_nuebar_C12 10 - e 0.5
 nc_numu_C12 11 + m 0.5
 nc_numubar_C12 12 - m 0.5
 nc_nutau_C12 13 + t 0.5
-nc_nutaubar_C12 14 + t 0.5
+nc_nutaubar_C12 14 - t 0.5
