@@ -3,7 +3,7 @@
 // Assume each file is fluence-- i.e. has actual number of events in the interval (dt already already applied)
 // Multiply by 2.4 here for 40 kton
 
-void garching_time_plot(TString indir)
+void garching_time_plot(TString indir, Double_t mass_factor)
 {
 
   // Histogram of events per time bin, in logarithmic time bins, for plotting 

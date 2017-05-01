@@ -55,7 +55,7 @@ double phi(double E_nu, double E0, double alpha);
 
 void usage() {
   // print usage information
-  printf("\n pinched  by K. Scholberg \n");
+  printf("\n pinched  by K. Scholberg, N. Kaiser \n");
   printf("Usage:\n");
   printf("./pinched th12[rad]\n");
   printf("If th12 absent, no MSW assumed; if present creates NH/IH directories\n");
@@ -233,7 +233,10 @@ double phi(double E_nu, double E_nu0, double alpha) {
 // Function to write energy and fluxes into fluxfile 
 void write(double a, double B[]){
 
-  // First neutrinos then antinus
+  // No flavor transitions assumed
+  // Input:  B[0]: nue, B[1]: nuebar, B[2]: nux (any one of them)
+  // Output flux file: first neutrinos, e, mu, tau, then antinus, ebar, mubar, taubar
+
   outfile << setw(8) << a << "\t " ;
   outfile << setw(8) << B[0] << "\t " ;
   outfile << setw(8) << B[2] << "\t " ;
@@ -250,16 +253,31 @@ void write(double a, double B[]){
 // Function to write energy and fluxes into fluxfile 
 void write_nh(double a, double B[], double th12){
 
-  // First neutrinos then antinus
+  // Input:  B[0]: nue, B[1]: nuebar, B[2]: nux (any one of them, all equal)
+  // Output flux file: first neutrinos, e, mu, tau, then antinus, ebar, mubar, taubar
 
-  // NH: nue=nux
-  // nuebar = cos^2th12 nuebar + sin^2th12 nux
-  // nux = (1-p)nue + (1+p)nux
-  // nuxbar = ((1-pbar)nuebar + (1+pbar)nuxbar)/2.
-  // th12 = 0.588336
-  double s2th12 = 0.308;
-  double c2th12 = 0.692;
+  // Normal ordering:
+  // nue=nux0
+  // nuebar = cos^2th12 nuebar0 + sin^2th12 nux0
+  // Pee = p = 0
+  // Peebar = pbar = cos^2th12 
 
+  // Neutrinos:
+  // numu+nutau = (1-p)nue0 + (1+p)nux0 
+  //  so numu=nutau = (nue0+nux0)/2
+   
+  // Antineutrinos
+  // numubar + nutaubar = ((1-pbar)nuebar0 + (1+pbar)nuxbar0)
+  //  so numubar = nutaubar = (sin^2th12 nuebar0 + (1+cos^2th12) nuxbar0)/2
+  
+  //For  th12 = 0.588336
+  //double s2th12 = 0.308;
+  //double c2th12 = 0.692;
+
+  double s2th12;
+  double c2th12;
+  s2th12 = pow(sin(th12),2);
+  c2th12 = 1-s2th12;
 
   outfile_nh << setw(8) << a << "\t " ;
   outfile_nh << setw(8) << B[2] << "\t " ;
@@ -276,8 +294,34 @@ void write_nh(double a, double B[], double th12){
 // Function to write energy and fluxes into fluxfile 
 void write_ih(double a, double B[], double th12){
 
-  double s2th12 = 0.308;
-  double c2th12 = 0.692;
+
+  // Input:  B[0]: nue, B[1]: nuebar, B[2]: nux (any one of them, all equal)
+  // Output flux file: first neutrinos, e, mu, tau, then antinus, ebar, mubar, taubar
+
+  // Inverted ordering:
+  // nuebar=nuxbar0
+  // nue = sin^2th12 nuebar0 + cos^2th12 nux0
+  // Pee = p = sin^2th12
+  // Peebar = pbar = 0
+
+  // Neutrinos
+  // numu + nutau = ((1-p)nue0 + (1+p)nux0)
+  //  so numu = nutau = (cos^2th12 nue0 + (1+sin^2th12) nux0)/2
+
+  // Antineutrinos:
+  // numubar+nutaubar = (1-pbar)nuebar0 + (1+pbar)nuxbar0 
+  //  so numubar=nutaubar = (nuebar0+nuxbar0)/2
+   
+  
+  // th12 = 0.588336
+
+  //  double s2th12 = 0.308;
+  //double c2th12 = 0.692;
+
+  double s2th12;
+  double c2th12;
+  s2th12 = pow(sin(th12),2);
+  c2th12 = 1-s2th12;
 
   // First neutrinos then antinus
   outfile_ih << setw(8) << a << "\t " ;
