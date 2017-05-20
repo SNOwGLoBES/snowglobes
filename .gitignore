@@ -1,0 +1,6 @@
+bin/supernova
+out/*.dat
+plots/*.root
+src/*o
+supernova
+supernova.glb
