@@ -2,5 +2,5 @@ bin/supernova
 out/*.dat
 plots/*.root
 src/*o
-supernova
+src/supernova
 supernova.glb
