@@ -41,7 +41,6 @@ void make_xscn_graphs(TString chanfilename)
 
   // Loop through channels and read the x-scn file
 
-  const Int_t maxchan=32;
   TString xscnfilename[maxchan];
   //  TGraph *xscngraphs[maxchan];
 
@@ -81,10 +80,7 @@ void make_xscn_graphs(TString chanfilename)
 
 
     Double_t energy[max_xscn_points];
-    Double_t nuexscn[max_xscn_points],numuxscn[max_xscn_points],nutauxscn[max_xscn_points]
-      ,
-      nuebarxscn[max_xscn_points],numubarxscn[max_xscn_points],nutaubarxscn[max_xscn_point
-									    s];
+    Double_t nuexscn[max_xscn_points],numuxscn[max_xscn_points],nutauxscn[max_xscn_points],nuebarxscn[max_xscn_points],numubarxscn[max_xscn_points],nutaubarxscn[max_xscn_points];
 
     Double_t xscn[max_xscn_points];
 
@@ -205,7 +201,7 @@ void make_xscn_graphs(TString chanfilename)
 
 	      } else {
 		cout << "Error! No flavor, cpstate for this channel" <<endl;
-		exit();
+		exit(0);
 	      }
 	    }
 	  }

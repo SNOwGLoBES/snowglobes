@@ -90,7 +90,7 @@ void plot_xscn_graphs(TString chanfilename)
     gr = (TGraph*)xscngraphlist.At(i);
 
     //    gr->Print();
-    gr->Draw();
+    gr->Draw("same");
     
     if( chanfilename.Contains("water") == 1){
 
