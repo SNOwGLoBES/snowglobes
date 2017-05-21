@@ -84,11 +84,11 @@ void garching_time_plot(TString indir, Double_t mass_factor)
 
 
       // totevents here is integrating events over energy in the file
-      // Apply the factor of 2.4 here for 40 kton (Snowglobes does 17 kt)
+      // Apply the mass factor wrt default configuration
 
       while(1) {
 	in >>en>>ev;
-	totevents += ev*2.4;
+	totevents += ev*mass_factor;
 
 	if (!in.good()) break;
 	k++;
