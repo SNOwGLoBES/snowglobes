@@ -130,7 +130,7 @@ void make_xscn_graphs(TString chanfilename)
       // Convert to MeV
       energy[i]*=1000;
 
-      //                cout <<i<<" "<<logen<<" "<<energy[i]<<" "<<" "<<nuebarxscn[i]<<endl;
+      cout <<i<<" "<<logen<<" "<<energy[i]<<" "<<" "<<nuexscn[i]<<endl;
 
 
       if (!xscnin.good()||i>=1000) break;
@@ -215,7 +215,9 @@ void make_xscn_graphs(TString chanfilename)
 
     gr = new TGraph(numxscnpoints,energy,xscn);
 
-    
+    cout << j <<" "<<channum[j]<<" "<<channame[channum[j]]<<endl;
+    gr->Print("all");
+
     xscngraphlist.Add(gr);
 
     gr->SetName(channame[channum[j]]);
