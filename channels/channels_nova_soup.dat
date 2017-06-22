@@ -1,0 +1,15 @@
+ibd              0 - e 1.
+nue_e            1 + e 3.09 
+nuebar_e         2 - e 3.09
+numu_e           3 + m 3.09
+numubar_e        4 - m 3.09
+nutau_e          5 + t 3.09
+nutaubar_e       6 - t 3.09
+nue_C12          7 + e 0.515
+nuebar_C12       8 - e 0.515
+nc_nue_C12       9 + e 0.515
+nc_nuebar_C12   10 - e 0.515
+nc_numu_C12     11 + m 0.515
+nc_numubar_C12  12 - m 0.515
+nc_nutau_C12    13 + t 0.515
+nc_nutaubar_C12 14 - t 0.515
