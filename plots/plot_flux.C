@@ -99,7 +99,7 @@ void plot_flux(TString fluxname, Int_t titleopt)
   gr0= new TGraph(numpoints-1,en,nuebar);
   gr0->SetLineWidth(4);
 
-  gr0->Draw();
+  gr0->Draw("same");
   //  gr0->Print();
 
   gr1= new TGraph(numpoints-1,en,nue);
