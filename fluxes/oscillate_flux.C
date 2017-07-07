@@ -93,7 +93,7 @@ cout << "Assuming pathlength in Earth=  "<<pathlength<<" km"<<endl;
  
 int i=0;
 
- infile.open(infilename);
+ infile.open(infilename.c_str());
  if (!infile.good()) {
    cout << "Can't open input file "<<infilename<<endl;
    exit(0);
