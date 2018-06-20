@@ -28,11 +28,14 @@ void make_xscn_graphs(TString chanfilename)
   chans.open(inchanfilename);
   Int_t j=0;
   while(1) {
-    chans >> channame[j]>> channum[j] >>cpstate[j]>>flav[j]>>num_target_factor[j];
+    chans >> channame[j]>> channum[j] ;
+    if (!chans.good()) break; // check in the middle of the line read to avoid endline shenanigans
+    chans >>cpstate[j]>>flav[j]>>num_target_factor[j];
     cout << "Channel: "<<j<<" "<<channum[j]<<" "<<channame[j]<<" "<<num_target_factor[j]<<endl;
     j++;
-    if (!chans.good()) break;
   }
+
+
   numchans=j;
 
   chans.close();
@@ -283,7 +286,7 @@ void make_xscn_graphs(TString chanfilename)
   hr->Draw();
 
 
-  for (i=0;i<numchans;i++) {
+  for (int i=0;i<numchans;i++) {
 
     gr = (TGraph*)xscngraphlist.At(i);
 
