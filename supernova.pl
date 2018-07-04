@@ -11,7 +11,13 @@ $channame = $ARGV[1];
 $expt_config = $ARGV[2];
 $noweight = $ARGV[3];
 
+
 $exename = "bin/supernova";
+unless (-f $exename)  {
+    print $exename," executable not found.  Please compile and install, with SNOWGLOBES variable set.", "\n";
+    exit;
+}
+
 
 $chanfilename = "channels/channels_".$channame.".dat";
 

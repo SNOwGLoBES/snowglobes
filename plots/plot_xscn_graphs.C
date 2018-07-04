@@ -45,6 +45,8 @@ void plot_xscn_graphs(TString chanfilename)
 
   TCanvas* canv = new TCanvas("c1"," ",800,700);
   canv->SetLogy(1);
+  canv->SetGridx(1);
+  canv->SetGridy(1);
 
   //  TString plot_title = "Cross-sections "+chanfilename;
   TString plot_title = " ";
