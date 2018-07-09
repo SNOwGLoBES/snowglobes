@@ -20,10 +20,11 @@ void plot_xscn_graphs(TString chanfilename)
   chans.open(inchanfilename);
   Int_t j=0;
   while(1) {
-    chans >> channame[j]>> channum[j] >>cpstate[j]>>flav[j]>>num_target_factor[j];
+    chans >> channame[j]>> channum[j] ;
+    if (!chans.good()) break; // check in the middle of the line read to avoid endline shenanigans
+    chans >>cpstate[j]>>flav[j]>>num_target_factor[j];
     cout << "Channel: "<<j<<" "<<channum[j]<<" "<<channame[j]<<" "<<num_target_factor[j]<<endl;
     j++;
-    if (!chans.good()) break;
   }
   numchans=j;
 
@@ -51,7 +52,6 @@ void plot_xscn_graphs(TString chanfilename)
   //  TString plot_title = "Cross-sections "+chanfilename;
   TString plot_title = " ";
 
-  
   gStyle->SetTitleFontSize(.04);
 
   Double_t xmin = 5.;
@@ -69,7 +69,6 @@ void plot_xscn_graphs(TString chanfilename)
 
   ymax*=1.1;
 
-
   TH2F *hr = new TH2F("hr",plot_title,2,xmin,xmax,2,ymin,ymax);
   hr->SetXTitle(" Neutrino Energy (MeV) ");
   hr->SetYTitle(" Cross section (10^{-38} cm^{2})");
@@ -85,7 +84,7 @@ void plot_xscn_graphs(TString chanfilename)
   hr->Draw();
 
 
-   leg = new TLegend(0.18,0.62,0.4,0.88);
+   TLegend * leg = new TLegend(0.18,0.62,0.4,0.88);
 
    for (i=0;i<numchans;i++) {
 
@@ -139,6 +138,12 @@ void plot_xscn_graphs(TString chanfilename)
 	  leg->AddEntry(gr,"coh #nu-A","l");
 
 	}
+        if (i==9) {
+          leg->AddEntry(gr,"NC #nu_{e} ^{40}Ar", "l");
+          // if we put coherent scattering in, we need to move the legend
+          leg->SetX1(0.12); leg->SetX2(0.60); leg->SetY1(0.70); leg->SetY2(0.89);
+          leg->SetNColumns(2);
+        }
 
       }
       } 
