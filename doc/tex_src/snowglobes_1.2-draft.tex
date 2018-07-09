@@ -14,7 +14,8 @@
 \begin{document}
 
 \title{\bf $\snowglobes$: SuperNova Observatories with $\globes$: DRAFT}
-\author{Alex Beck$^1$,
+\author{Joshua Albert$^1$,
+Alex Beck$^1$,
 Farzan Beroz$^1$,
 Rachel Carr$^2$,
 Huaiyu Duan$^3$,\\
@@ -354,9 +355,11 @@ $\bar{\nu}_e + ^{40}{\rm Ar} \rightarrow e^+ + ^{40}{\rm Cl^*}$.
 The cross sections for interactions in argon, from references~\cite{GilBotella:2004bv,Kolbe:2003ys},
 are shown in Fig.~\ref{fig:argon_xscns}.   The uncertainties for the recent calculations 
 are at around the 10-20\% level.
-We do not include the NC
-$\nu_x + ^{40}{\rm Ar} \rightarrow \nu_x+ ^{40}{\rm Ar}^*$ channel at this time
-due to lack of information in the literature about resulting observable products.
+We have recently added the NC inelastic 
+$\nu_x + ^{40}{\rm Ar} \rightarrow \nu_x+ ^{40}{\rm Ar}^*$ channel, based on private
+communications with Dr. Anna Hayes.  This interaction is assumed to excite the $^{40}{\rm Ar}$
+nucleus to the 9.8~MeV level, from which it will de-excite directly to ground, emitting a 9.8~MeV $\gamma$.
+(* need info on the coherent scattering cross section *)
 
 
 \subsection{Interactions with Lead}
@@ -767,7 +770,7 @@ hospitality during the summer of 2010.
 \begin{itemize}
 \item Version 1.0 is the initial release.
 \item Version 1.1:  the target weighting factors are applied automatically by \texttt{supernova.pl}, which creates correctly-weighted output event rate files from the raw unweighted files (the latter now designated \texttt{\_unweighted.dat}).  Example plotting and event table scripts now no longer apply the weighting factor to event rates, and the user is no longer responsible for doing it.
-\item Version 1.2: capacity for handling backgrounds is added; a single background rate per detector configuration is enabled, if provided by the user.  A default background for the \texttt{ar17kt} configuration is included.
+\item Version 1.2: capacity for handling backgrounds is added; a single background rate per detector configuration is enabled, if provided by the user.  A default background for the \texttt{ar17kt} configuration is included. The NC inelastic interaction cross section is added for $^{40}$Ar.
 %cite Vic
 
  \end{itemize}

@@ -55,7 +55,7 @@ void make_xscn_graphs(TString chanfilename)
 
   Int_t water_colors[maxchan]={1,2,2,2,2,2,2,3,4,7,7,7,7,7,7,0,
                            0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0};
-  Int_t argon_colors[maxchan]={2,2,2,2,2,2,3,4,7,6,8,8,8,7,0,
+  Int_t argon_colors[maxchan]={2,2,2,2,2,2,3,4,7,6,6,8,8,7,0,
 			       0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0};
   Int_t colors[maxchan];
   Int_t ic=0;
