@@ -139,7 +139,7 @@ void plot_xscn_graphs(TString chanfilename)
 
 	}
         if (i==9) {
-          leg->AddEntry(gr,"NC #nu_{e} ^{40}Ar", "l");
+          leg->AddEntry(gr,"NC inl #nu ^{40}Ar", "l");
           // if we put coherent scattering in, we need to move the legend
           leg->SetX1(0.12); leg->SetX2(0.60); leg->SetY1(0.70); leg->SetY2(0.89);
           leg->SetNColumns(2);
