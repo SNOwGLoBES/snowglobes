@@ -96,7 +96,7 @@ Fig.~\ref{fig:schematic} gives a schematic overview of the approach.
 
 \begin{figure}
 \begin{center}
-\includegraphics[height=.3\textheight]{schematic.pdf}
+\includegraphics[height=.3\textheight]{figures/schematic.pdf}
 \end{center}
 \caption{$\snowglobes$ data flow.}\label{fig:schematic}
 \end{figure}
@@ -258,8 +258,8 @@ Fig.~\ref{fig:fluxes}.  We will include more fluxes, and flux generation tools, 
 %spectra for specified values of $\alpha$ and temperature
 
 \begin{figure}
-\includegraphics[height=.3\textheight]{flux_livermore.pdf}
-\includegraphics[height=.3\textheight]{flux_gvkm.pdf}
+\includegraphics[height=.3\textheight]{figures/flux_livermore.pdf}
+\includegraphics[height=.3\textheight]{figures/flux_gvkm.pdf}
 
 \caption{Left: ``Livermore'' fluence, for different flavor components,
   from reference~\cite{Totani:1997vj}, assuming Fermi-Dirac spectra with
@@ -278,26 +278,26 @@ expect future upgrades of $\snowglobes$ to incorporate more channels and
 more materials.
 
 \begin{figure}[htb]
-  \centering\includegraphics[width=.75\textwidth]{xscns_water.pdf}
+  \centering\includegraphics[width=.75\textwidth]{figures/xscns_water.pdf}
   \caption{Cross sections for relevant processes in water.}
   \label{fig:water_xscns}
 \end{figure}
 
 \begin{figure}[htb]
-  \centering\includegraphics[width=.75\textwidth]{xscns_scint.pdf}
+  \centering\includegraphics[width=.75\textwidth]{figures/xscns_scint.pdf}
   \caption{Cross sections for relevant processes in scintillator.}
   \label{fig:scint_xscns}
 \end{figure}
 
 
 \begin{figure}[htb]
-  \centering\includegraphics[width=.75\textwidth]{xscns_argon.pdf}
+  \centering\includegraphics[width=.75\textwidth]{figures/xscns_argon.pdf}
   \caption{Cross sections for relevant processes in liquid argon.}
   \label{fig:argon_xscns}
 \end{figure}
 
 \begin{figure}[htb]
-  \centering\includegraphics[width=.75\textwidth]{xscns_lead.pdf}
+  \centering\includegraphics[width=.75\textwidth]{figures/xscns_lead.pdf}
   \caption{Cross sections for relevant processes in lead.}
   \label{fig:lead_xscns}
 \end{figure}
@@ -359,7 +359,9 @@ We have recently added the NC inelastic
 $\nu_x + ^{40}{\rm Ar} \rightarrow \nu_x+ ^{40}{\rm Ar}^*$ channel, based on private
 communications with Dr. Anna Hayes.  This interaction is assumed to excite the $^{40}{\rm Ar}$
 nucleus to the 9.8~MeV level, from which it will de-excite directly to ground, emitting a 9.8~MeV $\gamma$.
-(* need info on the coherent scattering cross section *)
+The cross sections proved by Dr. Hayes only went up to 52~MeV, so a 2nd order polynomial fit was performed
+to the provided cross section curve to extrapolate this up to 100 MeV.  The fit was excellent (save the lowest
+energy point, which was manually fixed), so the extrapolation is likely quite valid.
 
 
 \subsection{Interactions with Lead}
@@ -431,8 +433,8 @@ Interaction rates and smeared rates for the \texttt{wc100kt30prct} configuration
 Fig.~\ref{fig:wcrates}.  The total rates for each channel (output of \texttt{make\_event\_table.pl}) are shown in Tab.~\ref{tab:wctable}.
 
 \begin{figure}[htb]
-  \centering\includegraphics[width=.75\textwidth]{interaction_rates_gvkm_wc100kt30prct.pdf}
-  \centering\includegraphics[width=.75\textwidth]{smeared_rates_gvkm_wc100kt30prct.pdf}
+  \centering\includegraphics[width=.75\textwidth]{figures/interaction_rates_gvkm_wc100kt30prct.pdf}
+  \centering\includegraphics[width=.75\textwidth]{figures/smeared_rates_gvkm_wc100kt30prct.pdf}
 
   \caption{Event rates in 100~kton of water, for the GVKM model and 30\% PMT
     coverage (events per 0.5~MeV). Top: interaction rates as a
@@ -478,8 +480,8 @@ Efficiency is assumed to be 100\%.
 %\cite{Cadonati:2000kq}
 
 \begin{figure}[htb]
-  \centering\includegraphics[width=.75\textwidth]{interaction_rates_gvkm_scint50kt.pdf}
-  \centering\includegraphics[width=.75\textwidth]{smeared_rates_gvkm_scint50kt.pdf}
+  \centering\includegraphics[width=.75\textwidth]{figures/interaction_rates_gvkm_scint50kt.pdf}
+  \centering\includegraphics[width=.75\textwidth]{figures/smeared_rates_gvkm_scint50kt.pdf}
 
   \caption{Event rates in 50 kton of scintillator, for the GVKM model 
   (events per 0.5~MeV). Top: interaction rates as a
@@ -529,8 +531,8 @@ the literature.
 
 
 \begin{figure}[htb]
-  \centering\includegraphics[width=.75\textwidth]{interaction_rates_gvkm_ar17kt.pdf}
-  \centering\includegraphics[width=.75\textwidth]{smeared_rates_gvkm_ar17kt.pdf}
+  \centering\includegraphics[width=.75\textwidth]{figures/interaction_rates_gvkm_ar17kt.pdf}
+  \centering\includegraphics[width=.75\textwidth]{figures/smeared_rates_gvkm_ar17kt.pdf}
 
   \caption{Event rates in argon, for the GVKM model (events per 0.5~MeV). Top: interaction rates as a
     function of true neutrino energy; bottom:  ``smeared''
@@ -578,7 +580,7 @@ advised to make use only of interaction rates for these channels in
 lead and to ignore the smeared rates.
 
 \begin{figure}[htb]
-  \centering\includegraphics[width=.75\textwidth]{interaction_rates_gvkm_halo2.pdf}
+  \centering\includegraphics[width=.75\textwidth]{figures/interaction_rates_gvkm_halo2.pdf}
 %  \centering\includegraphics[width=.75\textwidth]{smeared_rates_gvkm_halo2.pdf}
 
   \caption{Event rates in 1~kton of lead (events per 0.5~MeV) for the GVKM model. These
