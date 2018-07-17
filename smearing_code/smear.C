@@ -1,7 +1,8 @@
 
 // Create smearing matrices by multiplying interaction and resolution files
+void read_matrix(TString, TMatrixD*,Int_t);
 
-
+void write_smear(TString,TString,TMatrixD*, Int_t);
 void smear(TString config, TString channel, TString resolution)
 {
 
