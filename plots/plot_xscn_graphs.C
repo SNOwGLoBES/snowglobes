@@ -85,7 +85,7 @@ void plot_xscn_graphs(TString chanfilename)
   hr->Draw();
 
 
-   leg = new TLegend(0.18,0.62,0.4,0.88);
+   TLegend* leg = new TLegend(0.18,0.62,0.4,0.88);
 
    for (i=0;i<numchans;i++) {
 
