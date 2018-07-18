@@ -1,0 +1,13 @@
+Code to create smearing matrices
+
+interaction subdirectory contains code to make a smearing matrix to create a simple interaction matrix with a shift in energy corresponding to a threshold.
+
+output is the ssv file
+
+resolution subdirectory contains code to apply a Gaussian resolution
+
+Unit matrix files also provide
+
+smear.C  multiplies interaction and resolution matrix and puts the final smearing matrix in the out subdirectory.
+
+

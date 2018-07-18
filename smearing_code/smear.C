@@ -1,41 +1,12 @@
 
 // Create smearing matrices by multiplying interaction and resolution files
-void read_matrix(TString, TMatrixD*,Int_t);
+//void read_matrix(TString, TMatrixD*,Int_t);
 
-void write_smear(TString,TString,TMatrixD*, Int_t);
-void smear(TString config, TString channel, TString resolution)
-{
-
-
-  const Int_t matsize = 200;
-
-  TMatrixD intmat(matsize,matsize);
-  TMatrixD resmat(matsize,matsize);
-  TMatrixD smearmat(matsize,matsize);
-
-  // Read in the interaction matrix
-
-  TString interaction = "interaction/interaction_"+channel+".ssv";
-  cout << "Reading file: "<<interaction<<endl;
-
-  read_matrix(interaction,&intmat,matsize);
-
-  TString resolution_file = "resolution/resolution_"+resolution+".ssv";
-  cout << "Reading file: "<<resolution_file<<endl;
-
-
-  read_matrix(resolution_file,&resmat,matsize);
-
-  smearmat = resmat*intmat;
-
-  write_smear(channel,config,&smearmat,matsize);
-  //  smearmat.Print();
-
-}
+//void write_smear(TString,TString,TMatrixD*, Int_t);
 
 // Read the matrix from the file, formatted by rows
 // Assumes a square matrix of size matsize
-void read_matrix(TString filename,TMatrixD* matrix, Int_t matsize) {
+void read_matrix(TString filename,TMatrixD &matrix, Int_t matsize) {
 
   ifstream in;
   in.open(filename);
@@ -72,7 +43,7 @@ void read_matrix(TString filename,TMatrixD* matrix, Int_t matsize) {
 
 
 
-void write_smear(TString channel, TString config,TMatrixD* smearmat,Int_t matsize) {
+void write_smear(TString channel, TString config,TMatrixD &smearmat,Int_t matsize) {
   // Write the smearing matrix to the file
 
   TString outfilename = "out/smear_"+channel+"_"+config+".dat";
@@ -108,4 +79,34 @@ void write_smear(TString channel, TString config,TMatrixD* smearmat,Int_t matsiz
   out << ">"<<endl;
 
   out.close();
+}
+
+void smear(TString config, TString channel, TString resolution)
+{
+
+
+  const Int_t matsize = 200;
+
+  TMatrixD intmat(matsize,matsize);
+  TMatrixD resmat(matsize,matsize);
+  TMatrixD smearmat(matsize,matsize);
+
+  // Read in the interaction matrix
+
+  TString interaction = "interaction/interaction_"+channel+".ssv";
+  cout << "Reading file: "<<interaction<<endl;
+
+  read_matrix(interaction,intmat,matsize);
+
+  TString resolution_file = "resolution/resolution_"+resolution+".ssv";
+  cout << "Reading file: "<<resolution_file<<endl;
+
+
+  read_matrix(resolution_file,resmat,matsize);
+
+  smearmat = resmat*intmat;
+
+  write_smear(channel,config,smearmat,matsize);
+  //  smearmat.Print();
+
 }
