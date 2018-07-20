@@ -11,6 +11,7 @@
 \newcommand{\snowglobes}{\sf{SNOwGLoBES}}
 \usepackage{graphicx}
 \usepackage{url}
+\usepackage{hyperref}
 \begin{document}
 
 \title{\bf $\snowglobes$: SuperNova Observatories with $\globes$}
@@ -382,7 +383,9 @@ The smearing matrices provided are also in $\globes$ format.  The
 spectral distributions of interaction products and the detector
 response are handled simultaneously by this matrix: each column of the
 matrix represents the detector response for a given monochromatic
-incoming neutrino energy.  The $\globes$-formatted efficiency files give the
+incoming neutrino energy.  Note that with $\snowglobes$, unlike standard $\globes$,
+the detector response, not reconstructed neutrino energy, is used.
+The $\globes$-formatted efficiency files give the
 detector efficiency as a function of detected energy for a given channel and detector configuration.
 
 For some of the provided smearing files, published information was
