@@ -10,6 +10,10 @@ void read_matrix(TString filename,TMatrixD &matrix, Int_t matsize) {
 
   ifstream in;
   in.open(filename);
+  if (!in.good()) {
+    cout << "Cannot open file "<<filename<<endl;
+    exit(0);
+  }
   Int_t nlines = 0;
 
   Int_t irow=0;
