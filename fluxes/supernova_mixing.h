@@ -8,9 +8,6 @@
 // Supernova Signatures of Neutrino Mass Ordering. (2017, July 20). 
 // Scholberg, K. arXiv:1707.06384 https://doi.org/10.1088/1361-6471/aa97be
 
-// (* don't just add in the scripts, check them against the values in the paper!! *)
-// (* also go through the includes and remove the ones which are unnecessary! *)
-
 #ifndef SNMIX_HEADER_FILE
 #define SNMIX_HEADER_FILE
 
