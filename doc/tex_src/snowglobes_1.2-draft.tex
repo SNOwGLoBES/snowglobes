@@ -716,6 +716,31 @@ channels file with interaction channels for that material, along with
 appropriate cross-section files (and a detector
 configuration employing that material).
 
+To assist in adding new material cross sections, we have provided code to produce
+approximate cross section files for charged-current interactions on arbitrary nuclei.  This ``generic cross section''
+is based on parameterizations of cross section shape and magnitude.  The magnitude
+parameterization was made by fitting cross sections 
+for various materials provided in a theory paper ~\cite{SajjadAthar:2005ke}.
+The parameterization takes into account the Z (proton number), A (mass number),
+and Q-value threshold of the reaction.  This parameterization matches the theoretical
+cross section predictions to within near 20\%, though the theory predictions themselves
+may be far more uncertain than that.  The cross section parameterization is
+based on the cross sections provided in $\snowglobes$ for deuterium, $^{12}$C,
+$^{16}$O, and $^{40}$Ar, based on Q-value threshold and mass number.  Note that
+the thresholds used in this parameterization fit may not all be accurate.
+While the ground-state to ground-state mass difference (plus electron mass) can be a good estimate for
+the threshold, the reaction may tend to go to an excited state of the daughter nucleus.
+
+The generic cross section script, \texttt{xscns/generic\_xs/universal\_xs.py},
+comes pre-tuned, although the scripts used for parameterization tuning are provided
+if the user wishes to use their own cross sections as input for a new
+parameterization.  Cross sections produced from this script should not be assumed
+to be accurate.  It is the authors' hope that these cross sections should be reasonably
+close (within 50\% or so) to true cross sections, but the model is fairly basic,
+and the estimates may be off by factors of 5 or more.  Use with caution.
+Running the script without arguments will print instructions and produce a
+sample file.
+
 \subsection{Adding A New Background}
 
 The background calculated by $\snowglobes$ is presumed to be the sum of all relevant backgrounds in the appropriate time interval, as provided by the user.  Backgrounds can be
