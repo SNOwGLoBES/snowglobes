@@ -105,7 +105,7 @@ def GatherUserInputs(params):
    print("1) neutrino-electron elastic scattering")
    print("2) neutrino-nucleus charged-current interaction")
    print("3) neutrino-nucleus neutral-current (specific inelastic gamma) interaction")
-   print("4) custom interaction (code it in in the designated spot")
+   print("4) custom interaction (code it in in the designated spot)")
    
    params["interaction_type"] = IntInput("Interaction type", 
                                "Try again, please use an integer between 1 and 4, then press <enter>",
@@ -144,7 +144,8 @@ def GatherUserInputs(params):
       # CC nu-nuc interaction
       print("What is the Q-value (threshold) for the reaction (in MeV)?")
       print("Only count the ground state-ground state difference.")
-      print("The excited state of the final nucleus will de-excite to ground state")
+      print("The excited state of the final nucleus will de-excite to ground state.")
+      print("Don't forget to include the mass of the produced lepton!")
       params["q_threshold"] = FloatInput("g.s.-g.s. Q-value (MeV)")
       params["detname"] = input("Detector name (for filename)-->")
       params["targetname"] = input("Target (e.g. C12) name (for filename)-->")
@@ -428,7 +429,7 @@ def GaussianSmear(params, matrixset, matrix):
       if resolution_type == 1:
          gaus_res = resolution_a * our_edet
       else:
-         gaus_res = math.sqrt(pow(resolution_a/math.sqrt(our_edet),2)+pow(resolution_b,2))
+         gaus_res = math.sqrt(pow(resolution_a/math.sqrt(our_edet),2)+pow(resolution_b,2)) * our_edet
       # Assume we want to apply the gaussian for up to 5 sigma
       gaussian_extent_bins = int(math.floor(gaus_res*5/edet_step))
       edet_row_min = max(0, iedet - gaussian_extent_bins)
@@ -538,7 +539,7 @@ if params["interaction_type"] == 3:
       WriteMatrix(path + filename, channame, our_mat4)
 
 # Finally, go through the logic for a custom interaction
-if params["interaction_type"] == 3:
+if params["interaction_type"] == 4:
    print(" This would run for a custom interaction.  Still needs to be implemented.")
 
 # Below is some debugging stuff...
