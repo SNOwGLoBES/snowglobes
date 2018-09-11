@@ -129,10 +129,10 @@ def GatherUserInputs(params):
       print(" for the detector, efficiency, and backgrounds files you will be using.")
 
       params["enu_min"] = FloatInput("Min neutrino energy (MeV)", "Invalid input", 0, 10000)
-      params["enu_max"] = FloatInput("Max neutrino energy (MeV)", "Invalid input", enu_min, 10000)
+      params["enu_max"] = FloatInput("Max neutrino energy (MeV)", "Invalid input", params["enu_min"], 10000)
       params["n_points_enu"] = IntInput("Number of points in neutrino energy", "Invalid input", 10, 100000)
       params["edet_min"] = FloatInput("Min detected energy (MeV)", "Invalid input", 0, 10000)
-      params["edet_max"] = FloatInput("Max detected energy (MeV)", "Invalid input", edet_min, 10000)
+      params["edet_max"] = FloatInput("Max detected energy (MeV)", "Invalid input", params["edet_min"], 10000)
       params["n_points_edt"] = IntInput("Number of bins in detected energy", "Invalid input", 10, 100000)
 
    if params["interaction_type"] == 1:
@@ -174,6 +174,8 @@ def GatherUserInputs(params):
             testfile.close()
             outpath_is_valid = True
          except OSError:
+            print("Invalid filepath or no permissions")
+         except IOError:
             print("Invalid filepath or no permissions")
       # Ok, outpath looks good!
    # Otherwise, leave the path as is
@@ -236,10 +238,11 @@ def GetInitialArrays(params):
    # First index is detected energy bin
    # Second index is true neutrino energy point
 
-   # We're going to increase the number of bins by a factor of prec
+   # We're going to increase the number of edet bins by a factor of prec
    # temporarily, to improve calculation precision
+   # We don't do the same for enu, because those are points, not bins
 
-   n_points_enu = params["n_points_enu"]*params["prec"]
+   n_points_enu = params["n_points_enu"]
    n_points_edet = params["n_points_edet"]*params["prec"]
    unsmeared = np.zeros((n_points_edet, n_points_enu), dtype=float)
    smeared = np.zeros((n_points_edet, n_points_enu), dtype=float)
@@ -343,11 +346,11 @@ def GetUnsmearedCustom(params, matrixset):
 def Downsample(params, matrix):
    prec = params["prec"]
    # quick double check
-   if matrix.shape[0]%prec != 0 and matrix.shape[1]%prec != 0:
+   if matrix.shape[0]%prec != 0:
       print("illegal downsampling!")
       raise
    newdim0 = matrix.shape[0]/prec
-   newdim1 = matrix.shape[1]/prec
+   newdim1 = matrix.shape[1]
    shape = (newdim0, matrix.shape[0]/newdim0,
             newdim1, matrix.shape[1]/newdim1)
    return matrix.reshape(shape).mean(-1).mean(1)

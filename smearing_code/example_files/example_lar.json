@@ -1,0 +1,22 @@
+{
+  "comment1": "example file to be modified/used",
+  "comment2": "all energy values are in MeV",
+  "comment3": "unused parameters are ignored", 
+  "interaction_type": 2,
+  "q_threshold": 2.02,
+  "nc_gamma_energy": 0,
+  "enu_min": 0.5,
+  "enu_max": 100.0,
+  "n_points_enu": 200,
+  "edet_min": 0.5,
+  "edet_max": 100.0,
+  "n_points_edet": 200,
+  "comment4": "resolution_type 2 means a/sqrt(E) added in quadrature with b",
+  "resolution_a": 0.11,
+  "resolution_b": 0.02,
+  "resolution_type": 2,
+  "neutrino_flavor": 1,
+  "targetname": "Ar40",
+  "detname": "test_lar",
+  "outpath": "./smear_files"
+}

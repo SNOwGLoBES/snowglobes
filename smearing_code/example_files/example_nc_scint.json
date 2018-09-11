@@ -1,0 +1,20 @@
+{
+  "comment1": "example file to be modified/used",
+  "comment2": "all energy values are in MeV",
+  "interaction_type": 3,
+  "q_threshold": 0,
+  "nc_gamma_energy": 15.1,
+  "enu_min": 0.5,
+  "enu_max": 100.0,
+  "n_points_enu": 200,
+  "edet_min": 0.5,
+  "edet_max": 100.0,
+  "n_points_edet": 200,
+  "resolution_a": 0.07,
+  "resolution_b": 0.00,
+  "resolution_type": 2,
+  "neutrino_flavor": 1,
+  "targetname": "C12",
+  "detname": "test_scint",
+  "outpath": "./smear_files"
+}
