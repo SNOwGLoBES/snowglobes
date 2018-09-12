@@ -564,4 +564,4 @@ if params["interaction_type"] == 4:
 #print ("That took", e-s, "seconds")
 #print idensmear[0:10,3]
 #print idensmear[0:5,0:5]
-code.interact("going interactive", local=globals())
+#code.interact("going interactive", local=globals())

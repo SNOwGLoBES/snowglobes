@@ -533,7 +533,7 @@ Currently one argon detector configuration is provided,
 a detection threshold of 5~MeV.  We assume also that suitable
 triggering will be provided either from charge collection or from some
 external trigger.  The energy resolution for the smearing matrices is
-from Ref.~\cite{Amoruso:2003sw},~$\frac{\sigma}{E}~=~\frac{11\%}{\sqrt{E~({\rm MeV})}}~+~2\%$.
+from Ref.~\cite{Amoruso:2003sw},~$(\frac{\sigma}{E})^{2}~=~(\frac{11\%}{\sqrt{E~({\rm MeV})}})^{2}~+~(2\%)^{2}$.
 For the CC channels in argon we have included energy deposition of the
 leading lepton; in the detector response, we also incorporate
 additional visible energy from deexcitation gammas (these gammas may
@@ -639,7 +639,9 @@ Fluxes can be added by preparing a file according to the
 specifications in the $\globes$ manual.  The flux file must be placed
 in the \texttt{\$SNOWGLOBES/fluxes} directory and named
 \texttt{fluxname.dat}, where \texttt{fluxname} is the chosen name
-of the flux.   The file should have 501 rows with flux (or fluence) per 0.2~MeV for the different flavors in each row, for neutrino energies ranging from 0.0001 to 0.1001 GeV.
+of the flux.   
+The file should have 501 rows with flux (or fluence) per 0.2~MeV for the 
+different flavors in each row, for neutrino energies ranging from 0.0001 to 0.1001 GeV.
 
 \subsection{Adding New Channels}\label{addingchannel}
  A new channel for a particular material can be added as a new row in
@@ -709,6 +711,16 @@ go in the \texttt{\$SNOWGLOBES/effic} directory and be named as
 follows: \texttt{effic\_channelname\_detconfigname.dat}.
 If the post-smearing efficiency file is absent, then 100\% post-smearing efficiency is assumed.
 
+A utility is provided to help create smearing matrices.  In the
+\texttt{\$SNOWGLOBES/smearing\_code} directory, run 
+\texttt{python create\_smearing\_matrix.py}, and follow the interactive prompts,
+which explain the inputs in detail.
+The code can also be run with a json file as the sole argument, as in the provided
+examples.  The code can produce three categories of smearing matrix files:
+Neutrino-electron scattering, CC threshold interactions, and NC gamma interactions.
+The code then will produce the appropriate smearing matrix for the interaction,
+apply gaussian a energy resolution smearing, and produce a formatted file.
+
 \subsection{Adding A New Detector Material}
 
 To add an entirely new detector material, one would create a new
@@ -751,8 +763,11 @@ An accompanying smearing file must be provided by the user,\\
 \texttt{\$SNOWGLOBES/smear/smear\_channelname\_detconfigname.dat}.
 If the background is already smeared, this can be the unit matrix.
 
+\subsection{Using Non-Default Energy Ranges}
 
-
+While most $\snowglobes$ files are designed to work with the 0.0005-0.1~GeV energy
+range, it is possible to use other energy ranges as needed, to perform studies with
+unusual supernova models, or coherent elastic neutrino-nucleus scattering.
 
 \section{Future Upgrades}
 
