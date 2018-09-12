@@ -133,7 +133,7 @@ def GatherUserInputs(params):
       params["n_points_enu"] = IntInput("Number of points in neutrino energy", "Invalid input", 10, 100000)
       params["edet_min"] = FloatInput("Min detected energy (MeV)", "Invalid input", 0, 10000)
       params["edet_max"] = FloatInput("Max detected energy (MeV)", "Invalid input", params["edet_min"], 10000)
-      params["n_points_edt"] = IntInput("Number of bins in detected energy", "Invalid input", 10, 100000)
+      params["n_points_edet"] = IntInput("Number of bins in detected energy", "Invalid input", 10, 100000)
 
    if params["interaction_type"] == 1:
       # Input specifically for neutrino-electron elastic scattering
