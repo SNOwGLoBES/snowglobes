@@ -21,6 +21,33 @@ unless (-f $exename)  {
 
 $chanfilename = "channels/channels_".$channame.".dat";
 
+# If we are using a non-standard binning, this binning must be defined at the top of
+# the channel file.  The format is:
+# % bins emin emax sampling_points sampling_min sampling_max
+# and all energy values must be in GeV
+# the default values are...
+$ewins{'bins'} = "200";
+$ewins{'emin'} = "0.0005";   #GeV
+$ewins{'emax'} = "0.100";    #GeV
+$ewins{'sampling_points'} = "200";
+$ewins{'sampling_min'} = "0.0005"; #GeV
+$ewins{'sampling_max'} = "0.100"; #GeV
+
+open(CHANFILE,$chanfilename);
+$firstchanline = <CHANFILE>;
+$firstchanline =~ s/^s+//;   # remove leading whitespace
+if (index($firstchanline, "%") != -1){
+    @binningarray = split /\s+/, $firstchanline;
+    $ewins{'bins'} = @binningarray[1];
+    $ewins{'emin'} = @binningarray[2];
+    $ewins{'emax'} = @binningarray[3];
+    $ewins{'sampling_points'} = @binningarray[4];
+    $ewins{'sampling_min'} = @binningarray[5];
+    $ewins{'sampling_max'} = @binningarray[6];
+}
+close(CHANFILE);
+# these energy window/binning values are now ready for the preamble
+
 # Create the globes file
 
 $globesfilename = "supernova.glb";
@@ -28,9 +55,23 @@ $globesfilename = "supernova.glb";
 open(GLOBESFILE,">$globesfilename");
 
 
+# Here we add the globes preamble, with any modifications needed for rebinning taken care of
 open(PREAMBLE,"glb/preamble.glb");
+$ready_to_modify = 0;
 while(<PREAMBLE>) {
-    print GLOBESFILE $_;
+    if (index($_, "Energy window") != -1){$ready_to_modify = 1;}
+    $ourline = $_;
+    if($ready_to_modify) {
+        keys %ewins;  # reset the internal iterator so a prior each() doesn't affect the loop
+        while(my($k, $v) = each %ewins){
+           if (index($ourline, $k) != -1){
+               @vallist = split /\s+/, $ourline;
+               $ourline =~ s/$vallist[2]/$v/;
+               last;   # we have done the replacement, no need to continue
+           }
+       }   # end while loop over ewin replacements
+    }  # any necessary modification is done
+    print GLOBESFILE $ourline;
 }
 close(PREAMBLE);
 
@@ -66,8 +107,10 @@ open(CHANFILE,$chanfilename);
 
 while(<CHANFILE>) {
 
-# Grab the channel name
+# skip energy window info line
+    if (/%/) {next;}
 
+# Grab the channel name
     $_=~s/\s*//;
     $_=~s/\s+/ /g;
 
@@ -78,7 +121,6 @@ while(<CHANFILE>) {
     $output_line = "include \"smear/smear_".$chan_name."_".$expt_config.".dat\"\n";
 
 
-#    print $output_line;
     print GLOBESFILE $output_line;
 }
 
@@ -170,6 +212,9 @@ open(CHANFILE,$chanfilename);
 
 while(<CHANFILE>) {
 
+# skip energy window info line
+    if (/%/) {next;}
+
 # Grab the channel name
 
     $_=~s/\s*//;
@@ -221,6 +266,9 @@ unless(-f $chanfilename) {
 open(CHANFILE,$chanfilename);
 
 while(<CHANFILE>) {
+
+# skip energy window info line
+    if (/%/) {next;}
 
 # Grab the channel name
 
@@ -333,6 +381,9 @@ sub apply_weights
 open(CHANFILE,$chanfilename);
 
 while(<CHANFILE>) {
+
+# skip energy window info line
+    if (/%/) {next;}
 
 # Grab the channel name
 

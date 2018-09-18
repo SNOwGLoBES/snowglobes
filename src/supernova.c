@@ -85,9 +85,18 @@ int main(int argc, char *argv[])
   char cp;
   char flav;
   int num_target_factor=1;
+  int skipline = 0;
+  char* eofcheck; /* need to check return of fgets for whether line was read successfully */
   while (!feof(fp_chans)) {
-    fgets(chbuf,1000,fp_chans);
-    if (chbuf != NULL) {
+    skipline = 0;
+    eofcheck = fgets(chbuf,1000,fp_chans);
+    for (int ichar = 0; ichar != 5; ichar++){
+      if (chbuf[ichar] == '%'){
+        skipline = 1;
+      }
+    }
+    if (skipline) {continue;}
+    if (eofcheck != NULL) {
       ret = sscanf(chbuf,"%s %i %s %s %i",chan_name[num_chans],&chan_num[num_chans],&cp, &flav, &num_target_factor);
       /*      printf("%s %i\n",chan_name[num_chans],chan_num[num_chans]); */
       num_chans++;
