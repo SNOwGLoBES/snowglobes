@@ -4,11 +4,11 @@ CFLAGS = -Wall
 of: oscillate_flux
 all: oscillate_flux pinched
 
-oscillate_flux:
-	$(CC) $(CFLAGS) oscillate_flux.C supernova_mixing.C -o oscillate_flux
+oscillate_flux: oscillate_flux.cc supernova_mixing.cc
+	$(CC) $(CFLAGS) oscillate_flux.cc supernova_mixing.cc -o oscillate_flux
 
-pinched:
-	$(CC) $(CFLAGS) pinched.C supernova_mixing.C -o pinched
+pinched: pinched.cc supernova_mixing.cc
+	$(CC) $(CFLAGS) pinched.cc supernova_mixing.cc -o pinched
 
 clean:
 	rm -f oscillate_flux pinched
