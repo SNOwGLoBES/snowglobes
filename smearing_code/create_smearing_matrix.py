@@ -370,6 +370,7 @@ def WriteMatrix(filename, channelname, matrix):
    # the last line needs a semicolon instead of a colon
    our_line = "{0," + lastelem + "," + ",".join([x for x in matrix[irow,:].astype(str)]) + "};\n"
    outfile.write(our_line)
+   outfile.write(">")
    outfile.close()
    return
 

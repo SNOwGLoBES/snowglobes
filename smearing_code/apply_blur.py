@@ -76,6 +76,7 @@ def WriteMatrix(filename, channelname, matrix):
    # the last line needs a semicolon instead of a colon
    our_line = "{0," + lastelem + "," + ",".join([x for x in matrix[irow,:].astype(str)]) + "};\n"
    outfile.write(our_line)
+   outfile.write(">")
    outfile.close()
    return
 
@@ -146,8 +147,8 @@ def PlotMeanAndSigma(matrix1, matrix2):
    plt.plot(mean2, label="after mean")
    legmean = plt.legend(loc="best")
    plt.subplot(122)
-   plt.plot(std1, label="before std")
-   plt.plot(std2, label="after std")
+   plt.plot(std1, label="before stdev")
+   plt.plot(std2, label="after stdev")
    legstd = plt.legend(loc="best")
    print("Close the plot window to finish the program")
    plt.show()
