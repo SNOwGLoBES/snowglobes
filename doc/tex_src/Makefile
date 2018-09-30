@@ -1,4 +1,4 @@
-MAIN = snowglobes_1.2-draft
+MAIN = snowglobes_1.3-draft
 
 TEXFILES = $(MAIN).tex $(wildcard sec_*.tex) $(wildcard *.bib)
 FIGURES = $(shell ls figures/*)
