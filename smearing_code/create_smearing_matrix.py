@@ -1,3 +1,4 @@
+#!/usr/bin/env python
 # Script to make a smearing matrix for expected detector response
 # This script incorporates both neutrino reactions as well as detector resolution
 # Run with no arguments to be run interactively

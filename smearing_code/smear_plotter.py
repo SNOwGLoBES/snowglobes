@@ -1,3 +1,4 @@
+#!/usr/bin/env python
 # Plot the smearing matrix using pyplot
 # By jba 07/17/18
 # Usage: ./smear_plotter.py <path-to-smearing-file.dat> [optional log bool] [optional non-standard binning bool]

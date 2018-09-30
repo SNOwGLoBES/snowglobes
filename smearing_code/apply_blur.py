@@ -1,3 +1,4 @@
+#!/usr/bin/env python
 # Apply a gaussian blur to a smearing matrix
 # By jba 09/18/18
 # Usage: ./apply_blur.py <path-to-smearing-file.dat> <path-to-output-smearing-file.dat> [opt. blur size]
