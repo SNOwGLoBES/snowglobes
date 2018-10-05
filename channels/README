@@ -1,0 +1,8 @@
+Channel lists are included here
+The format is:
+interaction_name number neutrino_parity neutrino_flavor weighting_factor
+
+See documentation for more information.
+
+The file channels_argon_coh.dat is included for future use,
+coherent interactions are not fully supported yet
