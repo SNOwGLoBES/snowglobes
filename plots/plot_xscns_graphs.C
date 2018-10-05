@@ -1,4 +1,4 @@
-void plot_xscn_graphs(TString chanfilename)
+void plot_xscns_graphs(TString chanfilename)
 {
   // Plot graphs, having made them first with make_xscn_graphs.C
   // This is specific for water, scint, argon channels files
@@ -158,6 +158,10 @@ void plot_xscn_graphs(TString chanfilename)
 	if (i==7) leg->AddEntry(gr,"#nu_{e}-^{12}C","l");
 	if (i==8) leg->AddEntry(gr,"#bar{#nu}_{e}-^{12}C","l");
 	if (i==9) leg->AddEntry(gr,"NC ^{12}C","l");
+        if (i==15) leg->AddEntry(gr,"#nu_{e}-^{13}C", "l");
+        if (i==16) leg->AddEntry(gr,"NC ^{13}C", "l");
+        leg->SetX1(0.12); leg->SetX2(0.60); leg->SetY1(0.70); leg->SetY2(0.89);
+        leg->SetNColumns(2);
 
       }
       

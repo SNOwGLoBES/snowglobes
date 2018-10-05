@@ -147,6 +147,8 @@ $\globes$~\cite{globes} version 3.0.15 or later and its dependencies
 (3.1.6 for Mac)  must be installed, and the
 environment variable \texttt{GLB\_DIR} must be set to the $\globes$
 installation directory.  \texttt{Perl} is also required, and \texttt{Root}~\cite{root} is required for the sample plotting scripts.
+Some supplemental scripts for cross sections and smearing matrices require
+Python, preferably version 2.7.x.
 
 \subsection{Download and Installation Instructions}
 
@@ -354,6 +356,11 @@ excitation interaction, $\nu_x+^{12}{\rm C}\rightarrow~\nu_x+^{12}{\rm
   C}^{*}$ also takes place; this interaction results in a 15.1~MeV
 de-excitation $\gamma$-ray which can be used to tag this interaction.
 We use cross-sections from reference~\cite{Kolbe:1999au} for the CC interactions and the measurement from reference~\cite{Armbruster:1998gk} for the NC cross-section.
+CC and NC interactions on $^{13}\mathrm{C}$ are included, based on predictions
+from~\cite{Pourkaviani:1991pb} and~\cite{Suzuki:2012aa}.  Though the isotope 
+comprises only 1.1\% of natural carbon, the lower interaction threshold for
+the CC and NC reactions may be of some interest.  The $\nu_x+^{13}{\rm C}\rightarrow~\nu_x+^{13}{\rm
+  C}^{*}$ reaction yields a 3.7~MeV $\gamma$-ray.
 Carbon cross-sections are plotted in Fig.~\ref{fig:scint_xscns}.
 
 
@@ -370,9 +377,9 @@ We have recently added the NC inelastic
 $\nu_x + ^{40}{\rm Ar} \rightarrow \nu_x+ ^{40}{\rm Ar}^*$ channel, based on private
 communications with Dr. Anna Hayes.  This interaction is assumed to excite the $^{40}{\rm Ar}$
 nucleus to the 9.8~MeV level, from which it will de-excite directly to ground, emitting a 9.8~MeV $\gamma$.
-The cross sections proved by Dr. Hayes only went up to 52~MeV, so a 2nd order polynomial fit was performed
-to the provided cross section curve to extrapolate this up to 100 MeV.  The fit was excellent (save the lowest
-energy point, which was manually fixed), so the extrapolation is likely quite valid.
+%The cross sections proved by Dr. Hayes only went up to 52~MeV, so a 2nd order polynomial fit was performed
+%to the provided cross section curve to extrapolate this up to 100 MeV.  The fit was excellent (save the lowest
+%energy point, which was manually fixed), so the extrapolation is likely quite valid.
 
 
 \subsection{Interactions with Lead}
@@ -489,6 +496,7 @@ and \texttt{novaND}, which represent the NOvA far (14kt) and near (300t)
 detectors respectively. The \texttt{scint50kt} smearing files were created using
 an assumed resolution of $\frac{\sigma}{E}~=~\frac{7\%}{\sqrt{E~({\rm MeV})}}$
 from reference~\cite{Eguchi:2002dm}.  At the moment we assume 100\% branching ratio for the 15.1~MeV gamma; however we will refine this in the near future.
+% Near future... umm... what?  Also, that branching ratio is only for NC events, right? (* FIXIT *)
 Efficiency is assumed to be 100\%.
 
 %\cite{Cadonati:2000kq}

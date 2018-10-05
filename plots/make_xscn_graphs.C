@@ -59,6 +59,8 @@ void make_xscn_graphs(TString chanfilename)
 			       0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0};
   Int_t carbons_colors[maxchan]={1,2,3,4,2,2,3,4,7,6,6,8,8,7,0,
 			       0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0};
+  Int_t scint_colors[maxchan]={1,2,2,3,9,3,9,4,4,7,7,7,7,7,7,6,
+			       8,8,8,8,8,8,0,0,0,0,0,0,0,0,0,0};
   Int_t colors[maxchan];
   Int_t ic=0;
   if( chanfilename.Contains("argon") == 1){
@@ -69,6 +71,11 @@ void make_xscn_graphs(TString chanfilename)
   else if (chanfilename.Contains("c13") == 1){
     for (ic=0;ic<maxchan;ic++) {
       colors[ic] = carbons_colors[ic];
+    }
+  }
+  else if (chanfilename.Contains("scint") == 1){
+    for (ic=0;ic<maxchan;ic++) {
+      colors[ic] = scint_colors[ic];
     }
   }
   else {
