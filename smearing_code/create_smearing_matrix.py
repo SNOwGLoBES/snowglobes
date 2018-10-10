@@ -36,7 +36,8 @@ params["edet_max"] = 100.0            # MeV, max detected energy
 params["n_points_edet"] = 200         # how many bins in detected energy?
 params["resolution_a"] = 0.05         # either 1-sigma resolution, or A term for function
 params["resolution_b"] = 0            # B term for resolution function
-params["resolution_type"] = 0         # 1 = constant, 2 = function
+params["resolution_c"] = 0            # C term for resolution function
+params["resolution_type"] = 0         # 1 = constant, 2 = function, 3 = different function
 params["neutrino_flavor"] = 0         # nue, numu, nutau, etc.
 params["targetname"] = "default_name" # output filename component
 params["detname"] = "default_name"    # output filename component
@@ -204,12 +205,17 @@ def GatherUserInputs(params):
    print("For perfect resolution, choose constant resolution of zero")
    print(" 1) Constant resolution (i.e. 0.1 if sigma = 10%)")
    print(" 2) sqrt[(A/Sqrt[E])^2+ B^2] (E is detected energy in MeV)")
-   params["resolution_type"] = IntInput("Resolution definition", "Invalid input", 1,2)
+   print(" 3) A/E + (B/Sqrt[E]) + C (E is detected energy in MeV)")
+   params["resolution_type"] = IntInput("Resolution definition", "Invalid input", 1,3)
    if params["resolution_type"] == 1:
       params["resolution_a"] = FloatInput("Energy resolution?", "Invalid input", 0, 1)
    elif params["resolution_type"] == 2:
       params["resolution_a"] = FloatInput("Parameter A?", "Invalid input", 0, 10000)
       params["resolution_b"] = FloatInput("Parameter B?", "Invalid input", 0, 10000)
+   elif params["resolution_type"] == 3:
+      params["resolution_a"] = FloatInput("Parameter A?", "Invalid input", -10, 10000)
+      params["resolution_b"] = FloatInput("Parameter B?", "Invalid input", -10, 10000)
+      params["resolution_c"] = FloatInput("Parameter C?", "Invalid input", -10, 10000)
    else:
       print("no valid resolution given, try again or contact authors")
       raise
@@ -402,10 +408,11 @@ def GaussianSmear(params, matrixset, matrix):
    resolution_type = params["resolution_type"]
    resolution_a = params["resolution_a"]
    resolution_b = params["resolution_b"]
+   resolution_c = params["resolution_c"]
    if resolution_type == 1 and resolution_a*resolution_a < 1e-12:
       # in this case, we assume that the intent is for no smearing
       return matrix
-   if resolution_type < 1 or resolution_type > 2:
+   if resolution_type < 1 or resolution_type > 3:
       print("Invalid resolution type!")
       return matrix
    # Smearing should occur ONLY in the detected energy dimension.
@@ -431,10 +438,13 @@ def GaussianSmear(params, matrixset, matrix):
    for iedet in range(n_points_edet):
       our_edet = edet[iedet,0] # edet for this one...
       # 
+      gaus_res = 0 # set a default value which will be replaced
       if resolution_type == 1:
          gaus_res = resolution_a * our_edet
-      else:
+      elif resolution_type == 2:
          gaus_res = math.sqrt(pow(resolution_a/math.sqrt(our_edet),2)+pow(resolution_b,2)) * our_edet
+      elif resolution_type == 3:
+         gaus_res = (resolution_a/our_edet+resolution_b/math.sqrt(our_edet)+resolution_c) * our_edet
       # Assume we want to apply the gaussian for up to 5 sigma
       gaussian_extent_bins = int(math.floor(gaus_res*5/edet_step))
       edet_row_min = max(0, iedet - gaussian_extent_bins)
