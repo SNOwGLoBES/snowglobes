@@ -96,6 +96,9 @@ print("Read in " + str(len(smearrows)) + " lines")
 
 # Here I've hardcoded in the energy window, if you want to use a different energy window,
 # make sure you check snowglobes/glb/preamble.glb to make ensure agreement
+# By default we'll assume the standard 100 MeV 200 rows thing, 
+# but if it has 400 rows, we'll assume the high_energy binning (up to 200 MeV)
+
 nbins_enu = 200
 enumin = 0.0005 # GeV
 enumax = 0.100  # GeV
@@ -103,7 +106,17 @@ nbins_edet = 200
 edetmin = 0.0005 # GeV
 edetmax = 0.100  # GeV
 
-# Here's the possibility that we'll change the binning...
+z_mesh = np.array(smearrows)
+
+if z_mesh.shape == (400,400):
+   nbins_enu = 400
+   enumin = 0.0005 # GeV
+   enumax = 0.200  # GeV
+   nbins_edet = 400
+   edetmin = 0.0005 # GeV
+   edetmax = 0.200  # GeV
+
+# Here's the possibility that we'll allow further binnings
 do_nonstandard_binning = False
 # Do we plot logarithmic color scale?
 if nsbopt[0] == "T" or nsbopt[0] == "t" or nsbopt[0] == "1" or nsbopt[0] == "Y" or nsbopt[0] == "y":
@@ -122,7 +135,6 @@ if do_nonstandard_binning:
    nbins_edet = IntInput("Number of bins in detected energy", "Invalid input", 10, 100000)
 
 
-z_mesh = np.array(smearrows)
 
 if z_mesh.shape != (nbins_enu, nbins_edet):
     print "Problem with dimensions!"
