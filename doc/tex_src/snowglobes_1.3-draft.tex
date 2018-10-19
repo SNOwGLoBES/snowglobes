@@ -777,6 +777,13 @@ While most $\snowglobes$ files are designed to work with the 0.0005-0.1~GeV ener
 range, it is possible to use other energy ranges as needed, to perform studies with
 unusual supernova models, or coherent elastic neutrino-nucleus scattering.
 
+Currently, a second energy range, from 0.0005-0.2~GeV (with 400 bins), is being added.  So far,
+not all cross sections and detectors are supported, but that is being slowly improved upon.
+Adding cross sections, smearing, efficiency, channel and detector configurations for
+a new energy window is possible for users, but rather involved.  The new energy
+range is indicated with a \texttt{"\_he"} suffix on file names.  This could be run,
+for example, with \texttt{./supernova.pl livermore water\_he wc100kt30prct\_he}.
+
 \section{Future Upgrades}
 
 There are a number of future upgrades on our to-do list:
