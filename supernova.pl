@@ -33,6 +33,8 @@ $ewins{'sampling_points'} = "200";
 $ewins{'sampling_min'} = "0.0005"; #GeV
 $ewins{'sampling_max'} = "0.100"; #GeV
 
+$energywindowset = "standard";
+
 open(CHANFILE,$chanfilename);
 $firstchanline = <CHANFILE>;
 $firstchanline =~ s/^s+//;   # remove leading whitespace
@@ -47,6 +49,12 @@ if (index($firstchanline, "%") != -1){
 }
 close(CHANFILE);
 # these energy window/binning values are now ready for the preamble
+
+# now that we've read in the channel file, we should know what energy windows we have
+if ($ewins{'emax'} > 0.199 and $ewins{'emax'} < 0.201) {
+    $energywindowset = "_he";
+    print "using high energy window!\n";
+}
 
 # Create the globes file
 
@@ -343,8 +351,12 @@ print GLOBESFILE $output_line;
 }
 
 # End-matter
-
-open(POSTAMBLE,"glb/postamble.glb");
+if ($energywindowset eq "standard"){
+    open(POSTAMBLE,"glb/postamble.glb");
+}
+elsif ($energywindowset eq "_he"){
+    open(POSTAMBLE,"glb/postamble_he.glb");
+}
 
 while(<POSTAMBLE>) {
     print GLOBESFILE $_;
