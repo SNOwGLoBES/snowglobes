@@ -60,7 +60,7 @@ for ($icol=0;$icol<$matsize;$icol++) {
       $enrow = $binsize*($irow+1);
 
 # Gaussian with given sigma
-      $gaussval = exp(-($enrow-$encol)**2/$sigma**2); 
+      $gaussval = exp(-($enrow-$encol)**2/(2*$sigma**2)); 
       $sumrow += $gaussval;
       $resmat[$irow][$icol] = $gaussval;
 
