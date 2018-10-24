@@ -1,11 +1,13 @@
 # Configuration/  mass in kton / target normalization
 wc100kt30prct  100.     0.1111
 wc100kt15prct  100.     0.1111
-ar40kt         40.      0.025
-scint20kt      20.      0.1429
+ar17kt         17.      0.025
+scint50kt      50.      0.1429
 halo1          0.079    0.004808
 halo2          1.       0.004808
 novaND         0.3      0.107
 novaFD         14.      0.107
-d2O            .001     0.1
-wc100kt30prct_he 100.   0.1111
+d2O            .0013    0.1
+d2Oacrylic     .0002    0.08
+lar1t          .00075   0.025
+naive          .00169   0.00787
