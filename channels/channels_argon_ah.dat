@@ -7,8 +7,8 @@ nutaubar_e 5 - t 18.
 nue_Ar40 6 + e 1.
 nuebar_Ar40 7 - e 1.
 nc_ah_nue_Ar40 8 + e 1.
-nc_ah_numu_Ar40 9 + e 1.
-nc_ah_nutau_Ar40 10 + e 1.
+nc_ah_numu_Ar40 9 + m 1.
+nc_ah_nutau_Ar40 10 + t 1.
 nc_ah_nuebar_Ar40 11 - e 1.
-nc_ah_numubar_Ar40 12 - e 1.
-nc_ah_nutaubar_Ar40 13 - e 1.
+nc_ah_numubar_Ar40 12 - m 1.
+nc_ah_nutaubar_Ar40 13 - t 1.
