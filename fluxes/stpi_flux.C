@@ -35,13 +35,20 @@ void stpi_flux()
 
   Double_t ie;
 
-  Double_t minen=0.;
+  Double_t minen=0.5;
   Double_t maxen=100.;
-  Double_t step=(Double_t)(maxen-minen)/(numipoints-1);
+
+  // IMPORTANT TO USE THIS BINNING
+  //  to match smearing matrices, or else Globes does not handle the 
+  // monochromatic numu properly
+
+  Double_t numipoints2 = 200;
+  Double_t step=(Double_t)(maxen-minen)/(numipoints2);
   const Double_t mmu = 105.66837;
 
   cout << "Step  "<<step<<endl;
-  ie=minen;
+  Double_t extra = 0.;
+  ie=minen+step/2.+extra;
 
   ofstream out;
   out.open("stpi2.dat");
@@ -103,14 +110,17 @@ void stpi_flux()
     Double_t fac=flux_per_s_percm2_at_20m*distfac*tbinsize*ebinfac;
 
     // All the numu goes in one bin
-    Double_t numuen = 29.792;
+    //    Double_t numuen = 29.792;
+    Double_t numuen = 29.6;
 
     if (fabs(ie-numuen)<step/2.) {
       inumu[i] = 1./step;
     }
 
     sumnue += inue[i]*fac;
-    out <<ie/1000 <<" "<<inue[i]*fac<<" "<<inumu[i]*fac<<" "<<
+
+    
+    out <<TString::Format("%12.10f",ie/1000) <<" "<<inue[i]*fac<<" "<<inumu[i]*fac<<" "<<
       inutau[i]*fac<<" "<<inuebar[i]*fac<<" "<<inumubar[i]*fac<<" "<<inutaubar[i]*fac<<endl;    
 
     ie+=step;
