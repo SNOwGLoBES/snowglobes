@@ -99,9 +99,12 @@ void stpi_flux()
     //    Double_t ebinfac=125000;  //
     //    Double_t ebinfac=125000.;  //
 
-    Double_t ebinfac=step;  //
-    // This is the flux in the bin
+    // This is for flux in the bin
+    //    Double_t ebinfac=step;  //
 
+    // This one is anomalous in binning due to the monochromatic numu issue
+    //  Want flux per 0.2 MeV
+    Double_t ebinfac=0.2;  
 
     // Norm: want flux in the bin at 1 km, assumed by Globes
     //  Aug 6, 2018:  this is for 0.08 protons per 1 MW, 
