@@ -3,7 +3,7 @@
 # This is NOT guaranteed to be accurate.  In fact, it is certain to be fairly
 # inaccurate.  But it has a good chance to be accurate to within a factor of a few.
 # See output from running with no arguments for instructions.
-# code initially written and tested with python 2.7.10
+# code initially written and tested with python 2.7.10, also works with 3.7
 # by jba 8/9/2018
 
 import sys

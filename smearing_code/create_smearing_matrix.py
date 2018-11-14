@@ -4,6 +4,7 @@
 # Run with no arguments to be run interactively
 # The interactive usage will make it simple and hard to mess up
 # Run with a single argument, a json file to read in, to bypass interactive running
+# This code should work in either python 2.6 or 3.7 (maybe more)
 
 import numpy as np
 import sys
@@ -356,10 +357,10 @@ def Downsample(params, matrix):
    if matrix.shape[0]%prec != 0:
       print("illegal downsampling!")
       raise
-   newdim0 = matrix.shape[0]/prec
+   newdim0 = int(matrix.shape[0]/prec)
    newdim1 = matrix.shape[1]
-   shape = (newdim0, matrix.shape[0]/newdim0,
-            newdim1, matrix.shape[1]/newdim1)
+   shape = (int(newdim0), int(matrix.shape[0]/newdim0),
+            int(newdim1), int(matrix.shape[1]/newdim1))
    return matrix.reshape(shape).mean(-1).mean(1)
 
 
@@ -489,7 +490,7 @@ elif len(sys.argv) == 2: # read from json file
          continue
       else:
          params[key] = json_data[key]
-print params
+print(params)
 
 
 matrixset = GetInitialArrays(params)

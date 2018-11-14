@@ -4,6 +4,7 @@
 # Usage: ./apply_blur.py <path-to-smearing-file.dat> <path-to-output-smearing-file.dat> [opt. blur size]
 # After running, the code will plot the mean and std dev.  You can use this to confirm that you haven't
 # blurred too much.  If the standard deviation is getting too big, move to a smaller number of bins for blurring
+# Code should work with python 2.6, 3.7, or similar
 
 import sys
 import numpy as np

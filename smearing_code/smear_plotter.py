@@ -124,7 +124,7 @@ if nsbopt[0] == "T" or nsbopt[0] == "t" or nsbopt[0] == "1" or nsbopt[0] == "Y" 
 elif nsbopt[0] == "F" or nsbopt[0] == "f" or nsbopt[0] == "0" or nsbopt[0] == "N" or nsbopt[0] == "n":
    do_nonstandard_binning = False
 else:
-    print "Are you sure you properly set the nonstandard binning bool?"
+    print("Are you sure you properly set the nonstandard binning bool?")
 if do_nonstandard_binning:
    print("Please enter non-standard binning information for the smearing file")
    enumin = 0.001*FloatInput("Min neutrino energy (MeV)", "Invalid input", 0, 100000)
@@ -137,7 +137,7 @@ if do_nonstandard_binning:
 
 
 if z_mesh.shape != (nbins_enu, nbins_edet):
-    print "Problem with dimensions!"
+    print("Problem with dimensions!")
 
 # Do we plot logarithmic color scale?
 if logopt[0] == "T" or logopt[0] == "t" or logopt[0] == "1" or logopt[0] == "Y" or logopt[0] == "y":
@@ -145,7 +145,7 @@ if logopt[0] == "T" or logopt[0] == "t" or logopt[0] == "1" or logopt[0] == "Y" 
 elif logopt[0] == "F" or logopt[0] == "f" or logopt[0] == "0" or logopt[0] == "N" or logopt[0] == "n":
     normpar = None
 else:
-    print "Are you sure you properly set a logarithm bool?"
+    print("Are you sure you properly set a logarithm bool?")
     normpar = None
 
 smearplot = plt.imshow(z_mesh, # plot the smearing values as an image, because python

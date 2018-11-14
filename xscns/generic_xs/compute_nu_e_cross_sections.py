@@ -1,5 +1,6 @@
 # Compute cross sections for neutrino/electron scattering
 # using calculations from doi.org/10.1088/0954-3899/29/11/013
+# This script has been tested with python 2.6 and 3.7
 
 import numpy as np
 import matplotlib.pyplot as plt
@@ -91,7 +92,7 @@ def EWCorr(Enu, lepnum):
       Bval = Avaltau
       nocorval = 1/3.  - 4/3.*s2tw + 16./3. * s2tw*s2tw
    else:
-      print "Go away!"
+      print ("Go away!")
       return -1
    #print("fminus, fplus = ", str(fminus), str(fplus))
    corrval = rho*rho* (pow(Aval,2) * (1+alpha/pi*fminus)
@@ -162,7 +163,7 @@ for ibin in range(1001):
 
 # Just some simple printout to make sure it is working
 for i in range(len(xs_list_e)):
-    print en_log_list[i], en_lin_list[i], xs_list_e[i], xs_list_mu[i]
+    print (en_log_list[i], en_lin_list[i], xs_list_e[i], xs_list_mu[i])
 
 # Now we plot the correction factors so we can be confident we're doing this right.
 plt.plot(np.array(en_lin_list), np.array(ewcorr_list_e))

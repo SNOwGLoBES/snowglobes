@@ -1,4 +1,5 @@
 # Quick, plot a couple cross sections against each other!
+# Will work with python 2.6, but possibly not 3.x
 
 import ROOT
 import array

@@ -1,6 +1,7 @@
 # Let's find a parameterization which does a good job of matching "known" cross sections
 # This code works on cross section shape
 # code initially written and tested with python 2.7.10 and ROOT 6.12
+# It may not work for python 3.x due to the ROOT import
 # by jba 8/9/2018
 
 import ROOT
@@ -111,7 +112,7 @@ bounds_list = [(-5000, 5000), (-5000, 5000), (-5000, 5000), (-5000, 50000)]
 result = optimize.minimize(TotalGoodness, initial_guess, method = "SLSQP",
                            bounds = bounds_list,
                            options = {"maxiter":10000})
-print result
+print(result)
 
 def FitFuncHist(sample_hist, name, params, q, a):
    p0, p1, p2, p3 = params

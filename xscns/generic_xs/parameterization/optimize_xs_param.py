@@ -72,7 +72,7 @@ bounds_list = [coeff_range, pow_range, coeff_range, pow_range, coeff_range, pow_
 result = optimize.minimize(totalchi2, initial_guess, method = "SLSQP", bounds = bounds_list,
                            options = {"maxiter":10000})
 
-print result
+print(result)
 
 
 # Now let's print out how the minimization went
