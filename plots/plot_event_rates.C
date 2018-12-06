@@ -19,7 +19,7 @@ void plot_event_rates(TString fluxname, TString chanfile, TString exptconfig, In
 
 
   ifstream chans;
-  chanfilename = "../channels/channels_"+chanfile+".dat";
+  TString chanfilename = "../channels/channels_"+chanfile+".dat";
   chans.open(chanfilename);
   Int_t j=0;
   while(1) {
@@ -49,7 +49,7 @@ void plot_event_rates(TString fluxname, TString chanfile, TString exptconfig, In
   //  maxy *=1.6;
 
   Double_t xmin;
-  if (exptconfig.CompareTo("ar17kt") == 0 || exptconfig.CompareTo("ar17ktres1")==0|| exptconfig.CompareTo("ar17ktres2") == 0) {
+  if (exptconfig.CompareTo("ar40kt") == 0 || exptconfig.CompareTo("ar40ktres1")==0|| exptconfig.CompareTo("ar40ktres2") == 0) {
     xmin = 5.;
   } else {
     xmin = 5.;
@@ -101,7 +101,7 @@ void plot_event_rates(TString fluxname, TString chanfile, TString exptconfig, In
 
   canv->cd();
   hr->Draw();
-  leg = new TLegend(0.6,0.7,0.8,0.75);
+  TLegend* leg = new TLegend(0.6,0.7,0.8,0.75);
   leg->SetFillColor(10);
   leg->SetTextFont((Font_t) 62);
   leg->SetTextSize(0.04);
@@ -167,7 +167,7 @@ void plot_event_rates(TString fluxname, TString chanfile, TString exptconfig, In
    canv2->cd();
    hr->Draw();
    canv2->SetLogy(logopt);
-   leg2 = new TLegend(0.6,0.6,0.88,0.85);
+   TLegend* leg2 = new TLegend(0.6,0.6,0.88,0.85);
    leg2->SetFillColor(10);
    leg2->SetTextFont((Font_t) 62);
    leg2->SetTextSize(0.04);
@@ -188,7 +188,7 @@ void plot_event_rates(TString fluxname, TString chanfile, TString exptconfig, In
    gr->Draw("same");
    leg2->AddEntry(gr,"ES","l");
      
-      if( exptconfig.CompareTo("ar17kt") == 0 || exptconfig.CompareTo("ar17ktres1") == 0 || exptconfig.CompareTo("ar17ktres2")==0){
+      if( exptconfig.CompareTo("ar40kt") == 0 || exptconfig.CompareTo("ar40ktres1") == 0 || exptconfig.CompareTo("ar40ktres2")==0){
 
      graphname=fluxname+"_nue_Ar40_"+exptconfig;
      gr = (TGraph*)f.Get(graphname);
@@ -312,7 +312,7 @@ void plot_event_rates(TString fluxname, TString chanfile, TString exptconfig, In
    gr->Draw("same");
    leg3->AddEntry(gr,"ES","l");
      
-      if( exptconfig.CompareTo("ar17kt") == 0 || exptconfig.CompareTo("ar17ktres1") == 0 || exptconfig.CompareTo("ar17ktres2")==0){
+      if( exptconfig.CompareTo("ar40kt") == 0 || exptconfig.CompareTo("ar40ktres1") == 0 || exptconfig.CompareTo("ar40ktres2")==0){
 
      graphname=fluxname+"_nue_Ar40_"+exptconfig+"_smeared";
      gr = (TGraph*)f.Get(graphname);
@@ -418,7 +418,7 @@ void plot_event_rates(TString fluxname, TString chanfile, TString exptconfig, In
    hr->Draw();
    canv4->SetLogy(logopt);
 
-   leg4 = new TLegend(0.6,0.6,0.88,0.85);
+   TLegend* leg4 = new TLegend(0.6,0.6,0.88,0.85);
    leg4->SetFillColor(10);
    leg4->SetTextFont((Font_t) 62);
    leg4->SetTextSize(0.04);

@@ -18,7 +18,7 @@ void make_event_rates(TString fluxname, TString chanfile, TString exptconfig)
   Double_t num_target_factor[maxchan];
 
   ifstream chans;
-  chanfilename = "../channels/channels_"+chanfile+".dat";
+  TString chanfilename = "../channels/channels_"+chanfile+".dat";
   chans.open(chanfilename);
   Int_t j=0;
   while(1) {
