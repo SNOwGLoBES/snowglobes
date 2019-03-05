@@ -77,7 +77,7 @@ void write_ih(double a, double B[], double th12, ofstream& outfile){
 
   // Inverted ordering:
   // nuebar=nuxbar0
-  // nue = sin^2th12 nuebar0 + cos^2th12 nux0
+  // nue = sin^2th12 nue0 + cos^2th12 nux0
   // Pee = p = sin^2th12
   // Peebar = pbar = 0
 
