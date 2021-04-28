@@ -174,7 +174,7 @@ if ($masses{$expt_config} == 0){
 
 }
 
-$target_mass = sprintf("%13.6f",$masses{$expt_config}*$normfact{$expt_config});  # This is ktons of free protons
+$target_mass = sprintf("%15.8f",$masses{$expt_config}*$normfact{$expt_config});  # This is ktons of free protons
 
 print "Experiment config: ",$expt_config,"  Mass: ",$masses{$expt_config}," kton \n";
 #print " Target mass: ",$normfact{$expt_config}," ",$target_mass,"\n";
