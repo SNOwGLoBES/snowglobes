@@ -18,11 +18,11 @@ ofname = "./default_argon.dat"
 emin = 0.0002 # GeV
 emax = 0.1 # GeV
 nbins = 1001 # this one cannot change!
-if len(sys.argv) not in [4, 5, 7, 8]:
+if len(sys.argv) not in [4, 5, 6, 8]:
    print("Usage: python ./universal_xs.py Z A Q [+/- for nue/nuebar] [<filename>] [emin emax]")
    print("Q must be in MeV, the optional emin and emax must be in GeV")
    print("These are very approximate cross sections, use with bucket of salt")
-if len(sys.argv) in [4,5,7,8]:
+if len(sys.argv) in [4,5,6,8]:
    Z = int(sys.argv[1])
    A = int(sys.argv[2])
    Q = float(sys.argv[3])

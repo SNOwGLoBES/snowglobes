@@ -1,6 +1,6 @@
 # Try to find a function to optimize a parameterization for neutrino cross sections
 # This optimizes cross section magnitudes for Michel spectrum neutrinos.
-# code initially written and tested with python 2.7.10
+# code initially written and tested with python 2.7.10, also works with 3.x
 # by jba 7/2018
 
 import scipy.optimize as optimize
@@ -42,7 +42,7 @@ def calc_xs(nuc_param_dict, fit_param_list):
    p4 = fit_param_list[4]
    p5 = fit_param_list[5]
 
-   return (p0 * pow(a, p1) + p2 * pow(a-z, p3)) * ((1 + p4 * pow(q, p5)))
+   return (p0 * pow(a, p1) + p2 * pow(a-z, p3)) * (1 + p4 * pow(q, p5))
 
 
 # Function to compute a chi2 for how well we fit a single cross section
@@ -55,7 +55,6 @@ def chi2(xs_datum, fit_param_list):
 # Sum the chi2 over all our data points
 def totalchi2(fit_param_list):
    xs_data = GetData("athar_xs.dat")
-   ndat = len(xs_data)
    sum_chi2 = 0
    for xs_datum in xs_data:
       sum_chi2 += chi2(xs_datum, fit_param_list)
