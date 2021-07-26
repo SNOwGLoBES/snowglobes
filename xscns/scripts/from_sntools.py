@@ -13,6 +13,23 @@ from numpy import linspace
 from scipy import integrate
 from sntools.interaction_channels import o16eb as c  # TODO: select interaction channel
 
+flv = 'eb'  # TODO: select flavor of interacting neutrino from ['e', 'eb', 'x', 'xb']
+
+try:
+    # sntools v1.0 and later
+    c = c.Channel(flv)
+except AttributeError:
+    # sntools v0.7.4 or earlier
+    import builtins
+    builtins._flavor = flv
+
+    try:
+        _ = c._opts(20)["points"]
+    except AttributeError:
+        def _opts(eNu, *args):
+            return {'points': []}
+        c._opts = _opts
+
 
 def xs(eNu):
     eE_min, eE_max = c.bounds_eE(eNu)
