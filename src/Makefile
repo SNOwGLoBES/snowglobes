@@ -35,35 +35,88 @@
 # replaced by the respective library, such as libglobes.so.0.0.1
 
 
-
+# SNOwGLoBES compilation flags -----------------------------------------------------------------
 prefix = ${GLB_DIR}
 exec_prefix = ${prefix}
 libdir = ${exec_prefix}/lib
 globesconf= $(exec_prefix)/bin/globes-config
 
-local_CFLAGS = -g -O4
+local_CFLAGS = -g -O4 -std=c99
 
 INCFLAGS:=$(shell $(globesconf) --include)
 local_LDFLAGS:=$(shell $(globesconf) --libs)
 local_LTLDFLAGS:=$(shell $(globesconf) --ltlibs)
+# ----------------------------------------------------------------------------------------------
+
+# cevns_recoil_response.cc compilation flags ---------------------------------------------------
+# These compilation flags support the Coherent Elastic Neutrino-Nucleus Scattering (CEvNS)
+# smearing matrix generation code. On calling >>make install<<, libDiffSpec_1.0.a, smearing.o,
+# and an executable called smearing are built in the snowglobes/smearing_code/cevns/
+# subdirectory. A makefile is also available in this subdirectory which only compiles the
+# CEvNS code, should you need it.
+
+ROOTCFLAGS = `root-config --cflags`
+ROOTLIBS   = `root-config --libs`
+
+CXXFLAGS += -I. -I./json/include -Wall -std=c++11 
+
+LIBBASE   = DiffSpec
+VER       = 1.0
+TAG       = 
+LIBALIAS  = $(LIBBASE)$(TAG)
+LIBNAME   = $(LIBALIAS)_$(VER)
+
+libdiffspec     = lib$(LIBNAME).a
+# ----------------------------------------------------------------------------------------------
 
 
+BIN = supernova
+CEVNSBIN = $(libdiffspec) cevns_recoil_response
+OBJ = supernova.o myio.o FormFactor.o cevns_recoil_response.o
 
-BIN = supernova 
-OBJ = supernova.o myio.o
+	
+%.o : %.cc
+	$(RM) $@
+	$(CXX) -c $(CXXFLAGS) -o $@ $*.cc
 
-all: $(BIN)
+%.o : %.c
+	gcc $(CFLAGS) $(local_CFLAGS) -c $< $(INCFLAGS)
 
 
+$(libdiffspec) : $(OBJ)
+	$(RM) $@
+	ar clq $@ $(OBJ)
+	ranlib $@
+
+formfactors: formfactors.o $(libdiffspec) 
+	$(RM) $@
+	$(CXX) -o $@ $(CXXFLAGS) -L. $^ $(ROOTLIBS) 
+
+.PHONY: formfactors.o
+formfactors.o: 
+	$(CXX) -o formfactors.o $(ROOTCFLAGS) $(CXXFLAGS) -c ./../smearing_code/dukecevns/formfactors.cc
+
+cevns_recoil_response: cevns_recoil_response.o $(libdiffspec)
+	$(RM) $@
+	$(CXX) -o $@ $(CXXFLAGS) -L. $^ $(ROOTLIBS)
+
+.PHONY: cevns_recoil_response.o $(libdiffspec)
+cevns_recoil_response.o:
+	$(CXX) -o cevns_recoil_response.o $(ROOTCFLAGS) $(CXXFLAGS) -c ./../smearing_code/dukecevns/cevns_recoil_response.cc
 
 supernova: supernova.o myio.o
 	gcc supernova.o myio.o -o supernova  $(LDFLAGS) $(local_LDFLAGS)
 
-install: $(BIN)
-	cp $(BIN) ${SNOWGLOBES}/bin
 
-%.o : %.c
-	gcc $(CFLAGS) $(local_CFLAGS) -c $< $(INCFLAGS)
+all: $(BIN) $(CEVNSBIN)
+
+install: $(BIN) $(CEVNSBIN)
+	cp $(BIN) ${SNOWGLOBES}/bin
+	mv $(CEVNSBIN) ${SNOWGLOBES}/smearing_code/dukecevns
+	mv cevns_recoil_response.o ${SNOWGLOBES}/smearing_code/dukecevns
+	mv FormFactor.o ${SNOWGLOBES}/smearing_code/dukecevns
+
 .PHONY: clean
 clean:
-	rm -f $(BIN) $(OBJ)
+	rm -f $(BIN) $(CEVNSBIN) $(OBJ)
+
