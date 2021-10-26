@@ -1,15 +1,6 @@
-nue_e 0 + e 18. 
-nuebar_e 1 - e 18.
-numu_e 2 + m 18.
-numubar_e 3 - m 18.
-nutau_e 4 + t 18.
-nutaubar_e 5 - t 18.
-nue_Ar40 6 + e 1.
-nuebar_Ar40 7 - e 1.
-coh_nc_Ar40 8 + e 1.
-nc_nue_Ar40 9 + e 1.
-nc_numu_Ar40 10 + m 1.
-nc_nutau_Ar40 11 + t 1.
-nc_nuebar_Ar40 12 - e 1.
-nc_numubar_Ar40 13 - m 1.
-nc_nutaubar_Ar40 14 - t 1.
+SN_nu coh_helm_nue_Ar 0 + e 1. 200 0.0005 0.1 200 0.0000000005 0.00001
+SN_nu coh_helm_numu_Ar 0 + m 1. 200 0.0005 0.1 200 0.0000000005 0.00001
+SN_nu coh_helm_nutau_Ar 0 + t 1. 200 0.0005 0.1 200 0.0000000005 0.00001
+SN_nu coh_helm_nuebar_Ar 0 - e 1. 200 0.0005 0.1 200 0.0000000005 0.00001
+SN_nu coh_helm_numubar_Ar 0 - m 1. 200 0.0005 0.1 200 0.0000000005 0.00001
+SN_nu coh_helm_nutaubar_Ar 0 - t 1. 200 0.0005 0.1 200 0.0000000005 0.00001
