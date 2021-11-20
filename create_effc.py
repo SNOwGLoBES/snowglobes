@@ -106,9 +106,9 @@ def make_effic_array(full_path, detector_name):
     f = open(full_path) #open file
     lines = f.readlines() #read the line
 
-    out_bins = 201
-    lo_enrg_out = 0.0001
-    hi_enrg_out = 0.1001
+    out_bins = 200
+    lo_enrg_out = 0.0005
+    hi_enrg_out = 0.100
 
     for line in lines: # loop through all lines
         line_spl = line.split(' ') #split line by white space , makes an arr
