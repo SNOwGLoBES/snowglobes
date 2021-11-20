@@ -43,7 +43,8 @@ def get_detector_name():
         10: 'wc100kt30prct_he',
         11: 'ar40kt_he',
         12: 'icecube',
-        13: 'kamland'
+        13: 'kamland',
+        14: 'kamland_le'
     }
 
     print('Available detectors (for file name):')
@@ -52,7 +53,7 @@ def get_detector_name():
         print(f"{key}) {detectors[key]}")
 
     dect_input = IntInput(
-        "Please input a number from 1 to 13", "Invalid Number!!", 1, 13)
+        "Please input a number from 1 to 14", "Invalid Number!!", 1, 14)
 
     return detectors[dect_input]
 ###############################################################################
@@ -93,7 +94,9 @@ def get_detector_effic(detector_name, E_obs):
 	# "xent": lambda x: 1.0 if (x > 5.0E-7) else 0,
 	# "pandax": lambda x: 1.0 if (x > 5.0E-7) else 0
         "kamland_ibd": lambda x: 0.6 if (1.806e-3 < x < 4e-3) else (0.79 if (x >= 4e-3) else 0),
-        "kamland": lambda x: 0.79 if (x > 5.0e-7) else 0
+        "kamland": lambda x: 0.79 if (x > 5.0e-7) else 0,
+        "kamland_le_ibd": lambda x: 0.6 if (1.806e-3 < x < 4e-3) else (0.79 if (x >= 4e-3) else 0),
+        "kamland_le": lambda x: 0.79 if (x > 5.0e-7) else 0
     }
     return detector_effic[detector_name](E_obs)
 ###############################################################################
@@ -112,6 +115,12 @@ def make_effic_array(full_path, detector_name):
 
     for line in lines: # loop through all lines
         line_spl = line.split(' ') #split line by white space , makes an arr
+
+        if line_spl[0] == '%':  # custom binning
+            out_bins = int(line_spl[1])
+            lo_enrg_out = float(line_spl[2])
+            hi_enrg_out = float(line_spl[3])
+            continue
 
         if line_spl[0] == 'SN_nu':  #if general ID is used skip it
             line_spl = line_spl[1:]
@@ -133,7 +142,7 @@ def make_effic_array(full_path, detector_name):
         effic_arr = np.zeros(out_bins)
         elem = 0
         # fill the arr with detector effics
-        if detector_name == 'kamland' and chan_name == 'ibd':
+        if detector_name in ['kamland', 'kamland_le'] and chan_name == 'ibd':
             for x in out_enrgs:
                 effic_arr[elem] = get_detector_effic(
                     f'{detector_name}_ibd', out_enrgs[elem])
