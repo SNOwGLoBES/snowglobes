@@ -69,7 +69,8 @@ def add_curlies(file_path):
         f.write(r"{"+content+r"}")
 
 ###############################################################################
-kl_co_energy = np.array([1.75557861, 1.77133033, 1.78532536, 1.7993204 , 1.81331504,
+# This data comes from https://arxiv.org/abs/1506.01175
+kl_cc_energy = np.array([1.75557861, 1.77133033, 1.78532536, 1.7993204 , 1.81331504,
        1.82879871, 1.84382111, 1.85870413, 1.8757922 , 1.89333648,
        1.91106761, 1.92754695, 1.94630165, 1.97805824, 2.01519875,
        2.05065292, 2.0927714 , 2.13407279, 2.16572011, 2.18553525,
@@ -88,7 +89,7 @@ kl_co_energy = np.array([1.75557861, 1.77133033, 1.78532536, 1.7993204 , 1.81331
        4.15963599, 4.19843686, 4.23723772, 4.27605259, 4.31487   ,
        4.35369124, 4.3925095 , 4.43132861, 4.47014985, 4.50896726,
        4.53543646])
-kl_co_effic = np.array([0.5772348 , 0.58716656, 0.59648842, 0.60581028, 0.61516172,
+kl_cc_effic = np.array([0.5772348 , 0.58716656, 0.59648842, 0.60581028, 0.61516172,
        0.6248322 , 0.63418659, 0.6423435 , 0.65044004, 0.65825462,
        0.6656233 , 0.67355811, 0.68198578, 0.68835244, 0.69555895,
        0.70127899, 0.70121579, 0.69859874, 0.69425461, 0.6871762 ,
@@ -108,12 +109,12 @@ kl_co_effic = np.array([0.5772348 , 0.58716656, 0.59648842, 0.60581028, 0.615161
        0.8101717 , 0.81057202, 0.81090782, 0.81108228, 0.81154714,
        0.81165289])
 
-def kamland_co_effic(x):
+def kamland_cc_effic(x):
     if x < 0.00018:
         return 0
     if x > 0.00043:
         return 0.81
-    return np.interp(x, kl_co_energy, kl_co_effic)
+    return np.interp(x, kl_cc_energy, kl_cc_effic)
 
 ###############################################################################
 # This method stores each detectors energy efficiency.
@@ -139,9 +140,9 @@ def get_detector_effic(detector_name, E_obs):
 	# "ds20": lambda x: 1.0 if (x > 5.0E-5) else 0,
 	# "xent": lambda x: 1.0 if (x > 5.0E-7) else 0,
 	# "pandax": lambda x: 1.0 if (x > 5.0E-7) else 0
-        "kamland_co": kamland_co_effic,
+        "kamland_cc": kamland_cc_effic,
         "kamland": lambda x: 1 if (x > 0.00035) else 0,
-        "kamland_le_co": kamland_co_effic,
+        "kamland_le_cc": kamland_cc_effic,
         "kamland_le": lambda x: 1 if (x > 0.00035) else 0
     }
     return detector_effic[detector_name](E_obs)
@@ -188,11 +189,12 @@ def make_effic_array(full_path, detector_name):
         effic_arr = np.zeros(out_bins)
         elem = 0
         # fill the arr with detector effics
-        if detector_name in ['kamland', 'kamland_le'] and chan_name in ['ibd']:
-            # Use different efficiency for coincidence events
+        if detector_name in ['kamland', 'kamland_le'] and\
+            chan_name in ['ibd', 'nue_C12', 'nue_C13']:
+            # Use different efficiency for charged current
             for x in out_enrgs:
                 effic_arr[elem] = get_detector_effic(
-                    f'{detector_name}_co', out_enrgs[elem])
+                    f'{detector_name}_cc', out_enrgs[elem])
                 elem += 1
         else:
             for x in out_enrgs:
