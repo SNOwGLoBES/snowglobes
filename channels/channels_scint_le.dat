@@ -1,0 +1,23 @@
+% 250 0.0001 0.025 250 0.0001 0.025
+ibd  0 - e 1.
+nue_e 1 + e 4. 
+nuebar_e 2 - e 4.
+numu_e 3 + m 4.
+numubar_e 4 - m 4.
+nutau_e 5 + t 4.
+nutaubar_e 6 - t 4.
+nue_C12 7 + e 0.4945
+nuebar_C12 8 - e 0.4945
+nc_nue_C12 9 + e 0.4945
+nc_nuebar_C12 10 - e 0.4945 
+nc_numu_C12 11 + m 0.4945
+nc_numubar_C12 12 - m 0.4945
+nc_nutau_C12 13 + t 0.4945
+nc_nutaubar_C12 14 - t 0.4945
+nue_C13 15 + e 0.0055
+nc_nue_C13 16 + e 0.0055
+nc_numu_C13 17 + m 0.0055
+nc_nutau_C13 18 + t 0.0055
+nc_nuebar_C13 19 - e 0.0055
+nc_numubar_C13 20 - m 0.0055
+nc_nutaubar_C13 21 - t 0.0055

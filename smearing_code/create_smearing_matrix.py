@@ -155,7 +155,7 @@ def GatherUserInputs(params):
    elif params["interaction_type"] == 3:
       # NC nu-nuc interaction
       print("What is the total gamma-ray energy produced in this interaction (in MeV)?")
-      params["nc_gamma_energy"] = FloatInput("Toal gamma energy (MeV)")
+      params["nc_gamma_energy"] = FloatInput("Total gamma energy (MeV)")
       params["detname"] = input("Detector name (for filename)-->")
       params["targetname"] = input("Target (e.g. C12) name (for filename)-->")
    elif params["interaction_type"] == 4:
