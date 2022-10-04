@@ -1,0 +1,20 @@
+
+
+
+/*  Need at least one rule although osc code not used.  This signal will be present in any configuration */
+
+rule(#SN_nu_events)<
+
+        @signal = 1.0@#SN_nu_signal
+        @signalerror = 0.011 : 0.00005
+
+        @background = 0.0@#SN_nu_signal
+        @backgrounderror = 0.011 : 0.00005
+        @sys_on_function = "chiSpectrumTilt"
+	@sys_off_function = "chiNoSysSpectrum"
+  @energy_window = 0.0005 : 0.100          /* Range of analysis: 5 MeV < E_vis < 55 MeV */
+>
+
+
+
+/**********************END**********************/
