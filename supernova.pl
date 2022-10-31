@@ -28,7 +28,7 @@ $energywindowset = "standard";
 
 # This block of code will look for essential files
 print
-"\nBefore running SNOWGLOBES, it will check see if you have the correspoinding files for each channel\n\n* Smearing matrix\n* Cross Section \n* Energy Effic\n\n";
+"\nBefore running SNOWGLOBES, it will check see if you have the corresponding files for each channel\n\n* Smearing matrix\n* Cross Section \n* Energy Effic\n\n";
 
 # Open channel file
 open( CHANFILE, $chanfilename );
