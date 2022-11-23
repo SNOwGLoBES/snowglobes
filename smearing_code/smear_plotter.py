@@ -86,9 +86,8 @@ for iline in infile.readlines():
         continue # this is a header line, move on
     else:
         rowvals = find_between(iline, "{", "}")
-        if len(rowvals) > 0:
-            rowvals_str = rowvals.split(",")[2:]
-            smearrows.append([float(x) for x in rowvals_str]) # first two entries don't really matter for this
+        rowvals_str = rowvals.split(",")[2:]
+        smearrows.append([float(x) for x in rowvals_str]) # first two entries don't really matter for this
     if ";" in iline:
         # this is the last one
         break
