@@ -22,7 +22,11 @@
 **/.ipynb_checkpoints
 **/.virtual_documents
 
-# old giignore (SNOwGLoBES 1.2)
+# Build directories for Python wheel
+/snowglobes_data/dist/
+/snowglobes_data/src/
+
+# old gitignore (SNOwGLoBES 1.2)
 bin/supernova
 out/*.dat
 plots/*.root
