@@ -1,8 +1,8 @@
 #!/usr/bin/perl
 # Script to run supernova rates programs
 # K. Scholberg July 2010
-# arguments:  flux name, channel file name, experiment configuration name, noweight
-# e.g.  ./supernova.pl livermore water wc100kt30prct 0
+# arguments:  run mode, flux name, channel file name, experiment configuration name, noweight
+# e.g.  ./supernova.pl 0 livermore water wc100kt30prct 0
 # If noweight is set, then the output spectra will not have channel weighting factors applied  (default is that weighting factors are applied)
 
 ##
