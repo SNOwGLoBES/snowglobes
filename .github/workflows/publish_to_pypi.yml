@@ -1,0 +1,54 @@
+# This workflows will upload a Python Package using Twine when a release is published
+# Based on https://help.github.com/en/actions/language-and-framework-guides/using-python-with-github-actions#publishing-to-package-registries
+
+name: Publish to PyPI
+
+on:
+  push:
+    tags: # Sequence of patterns matched against refs/tags
+      - 'v*' # Any tag matching v*, e.g. v1.0, v1.2b1
+
+jobs:
+  build-and-publish:
+    runs-on: ubuntu-latest
+    permissions:
+      # See https://docs.github.com/en/actions/deployment/security-hardening-your-deployments/about-security-hardening-with-openid-connect#adding-permissions-settings
+      id-token: write
+      contents: read
+
+    steps:
+    - uses: actions/checkout@v3
+    - name: Set up Python
+      uses: actions/setup-python@v4
+      with:
+        python-version: '3.11'
+
+    - name: Build and test
+      id: build_test
+      run: |
+        cd snowglobes_data/
+        GIT_VERSION=${GITHUB_REF/refs\/tags\/v/}
+
+        # Build and install
+        GIT_VERSION=$GIT_VERSION ./build.sh
+        pip install dist/snowglobes_data-*.whl
+
+        # Check the module imports successfully and that the version is what we expect
+        PYTHON_VERSION=`python -c 'import snowglobes_data; print(snowglobes_data.__version__)'`
+        echo "PYTHON_VERSION=${PYTHON_VERSION}"
+        echo "GIT_VERSION=${GIT_VERSION}"
+        if [ $PYTHON_VERSION != $GIT_VERSION ]; then exit 1; fi
+        echo "VERSION=${PYTHON_VERSION}" >> $GITHUB_OUTPUT
+
+    - name: Publish distribution 📦 to Test PyPI
+      uses: pypa/gh-action-pypi-publish@release/v1
+      with:
+        packages-dir: snowglobes_data/dist/
+
+    - name: Create draft release
+      uses: softprops/action-gh-release@v1
+      with:
+        tag_name: ${{ steps.build_test.outputs.VERSION }}
+        draft: true
+        prerelease: false
+        generate_release_notes: true
