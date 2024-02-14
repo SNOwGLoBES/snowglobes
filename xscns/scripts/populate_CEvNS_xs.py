@@ -1,5 +1,5 @@
 ##############################################################################################################
-#	This script, hosted in /xscns/generic_xs/ is intended to populate the xs_coh_helm_{element}_{flavor}
+#	This script, hosted in /xscns/scripts/ is intended to populate the xs_coh_helm_{element}_{flavor}
 #   files which give the GLoBES-required cross-sections for CEvNS interactions. The total cross-section 
 #   of interaction (as a function of incident neutrino energy) is calculated for each isotope, and the
 #   weighted average is calculated using the molar fraction as the weighting factor. The weighted

@@ -1,7 +1,7 @@
 # Let's find a parameterization which does a good job of matching "known" cross sections
 # This code works on cross section shape
 # code initially written and tested with python 2.7.10 and ROOT 6.12
-# It may not work for python 3.x due to the ROOT import
+# It also works for Python 3.x and ROOT 6.22.
 # by jba 8/9/2018
 
 import ROOT
