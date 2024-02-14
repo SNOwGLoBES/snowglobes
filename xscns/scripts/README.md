@@ -19,6 +19,9 @@ Run `python compare_xs.py` for usage information.
 ### compute_nu_e_cross_sections.py
 Generate file with cross section for neutrino-electron scattering, based on [DOI:10.1088/0954-3899/29/11/013](https://doi.org/10.1088/0954-3899/29/11/013).
 
+### populate_CEvNS_xs.py
+Generate cross-section files for CEvNS (`xs_coh_helm_{element}_{flavor}`) using the Helm form factor.
+
 ### universal_xs.py
 Produce a cross section file for an arbitrary A, Z, and Q. This gives a rough approximation and may only be accurate to within a factor of a few.
 Run `python universal_xs.py` for usage information.
