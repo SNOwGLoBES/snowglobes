@@ -1,4 +1,4 @@
-MAIN = snowglobes_1.3-draft
+MAIN = snowglobes_latest
 
 TEXFILES = $(MAIN).tex $(wildcard sec_*.tex) $(wildcard *.bib)
 FIGURES = $(shell ls figures/*)
@@ -19,6 +19,4 @@ $(PDFFILE) : $(TEXFILES)
 	$(LATEX) $(MAIN).tex
 
 clean :
-	$(RM) *~ $(PDFFILE) *.aux *.log *.toc */*.aux *.lot *.lof *.blg *.bbl *.out
-clena :
 	$(RM) *~ $(PDFFILE) *.aux *.log *.toc */*.aux *.lot *.lof *.blg *.bbl *.out
