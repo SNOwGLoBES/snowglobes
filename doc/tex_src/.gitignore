@@ -6,3 +6,9 @@
 *.blg
 *.bbl
 *.out
+*.synctex.gz
+*.fls
+*.fdb_latexmk
+
+# PDF files should be in the main /doc directory, not in /doc/tex_src
+*.pdf
