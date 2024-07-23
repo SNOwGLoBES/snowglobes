@@ -1,4 +1,5 @@
-# Electron neutrino-oxygen scattering cross section 5MeV-60MeV (10^-8 cm^2/GeV) #
+# Electron neutrino-oxygen scattering cross section 5MeV-100MeV (10^-38 cm^2/GeV) #
+# Based on calculations by Kolbe, Langanke and Vogel 2002 (DOI:10.1103/PhysRevD.66.013007)
 # log(energy in GeV)       nu_e       nu_mu       nu_tau       nu_e_bar       nu_mu_bar       nu_tau_bar #
 
        -2.30103             0          0           0                  0          0               0
