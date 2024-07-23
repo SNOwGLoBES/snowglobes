@@ -506,9 +506,16 @@ if ( $run_choice == '0' ) {
 
     }
 
+    print("All done !!\n");
+
+    # Time benchmark
+    my $end = time();
+    printf( "Execution Time: %0.02f s\n", $end - $start );
+}    #END of old supernova.pl
+
     sub apply_weights {
 
-        open( CHANFILE, $chanfilename );
+      open( CHANFILE, $chanfilename );
 
         while (<CHANFILE>) {
 
@@ -574,12 +581,7 @@ if ( $run_choice == '0' ) {
         close(CHANFILE);
 
     }
-    print("All done !!\n");
 
-    # Time benchmark
-    my $end = time();
-    printf( "Execution Time: %0.02f s\n", $end - $start );
-}    #END of old supernova.pl
 
 # ###################################
 # #### START of new supernova.pl ####
